@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAXNOMICS ARENA™ — Nigeria 2025 Reform Quest</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#FFD700;--green:#00FF88;--dark-green:#00CC66;--emerald:#00A854;
+  --neon-cyan:#00F5FF;--red:#FF3355;--orange:#FF8C00;--purple:#9B59B6;
+  --bg-dark:#050E1A;--bg-mid:#091828;--bg-card:#0D2137;
+  --text-bright:#E8F4FF;--text-dim:#6A9AB0;
+  --border-glow:0 0 15px rgba(0,255,136,0.5);
+  --gold-glow:0 0 20px rgba(255,215,0,0.6);
+  --red-glow:0 0 20px rgba(255,51,85,0.6);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;min-height:100vh;background:var(--bg-dark);color:var(--text-bright);font-family:'Exo 2',sans-serif;overflow-x:hidden}
+body{background:radial-gradient(ellipse at 20% 50%,#0a1f3a 0%,#050e1a 60%),linear-gradient(135deg,#050e1a,#091828)}
+
+/* ========= PARTICLES CANVAS ========= */
+#particles-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* ========= SCREENS ========= */
+.screen{display:none;min-height:100vh;position:relative;z-index:10;padding:20px}
+.screen.active{display:flex;flex-direction:column;align-items:center}
+
+/* ========= SPLASH SCREEN ========= */
+#splash{justify-content:center;background:none}
+.splash-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(0,255,136,0.08),transparent 70%);z-index:-1}
+.game-logo-3d{position:relative;text-align:center;margin-bottom:20px}
+.logo-title{font-family:'Orbitron',monospace;font-size:clamp(28px,5vw,58px);font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,#FFD700 0%,#00FF88 40%,#00F5FF 80%,#FFD700 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none;filter:drop-shadow(0 0 30px rgba(255,215,0,0.4));animation:titlePulse 3s ease-in-out infinite}
+.logo-subtitle{font-family:'Orbitron',monospace;font-size:clamp(10px,1.8vw,18px);letter-spacing:8px;color:var(--neon-cyan);margin-top:5px;text-transform:uppercase;opacity:0.9}
+.logo-tagline{font-size:clamp(12px,2vw,15px);color:var(--gold);letter-spacing:2px;margin-top:8px;font-style:italic}
+.finpolnomics-logo{display:flex;align-items:center;justify-content:center;gap:15px;margin:15px 0}
+.fpn-badge{background:linear-gradient(135deg,#0D2137,#0a3a20);border:2px solid var(--emerald);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--border-glow),inset 0 0 20px rgba(0,255,136,0.05)}
+.fpn-icon{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#00FF88,#FFD700);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#050e1a;box-shadow:0 0 20px rgba(0,255,136,0.5)}
+.fpn-text{text-align:left}
+.fpn-name{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--green);line-height:1.2}
+.fpn-sub{font-size:9px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase}
+
+/* 3D GAME LOGO SVG */
+.game-icon-3d{width:120px;height:120px;margin:0 auto 15px;position:relative}
+.game-icon-3d svg{filter:drop-shadow(0 0 20px rgba(0,255,136,0.6)) drop-shadow(0 0 40px rgba(255,215,0,0.3));animation:iconFloat 4s ease-in-out infinite}
+
+@keyframes titlePulse{0%,100%{filter:drop-shadow(0 0 30px rgba(255,215,0,0.4))}50%{filter:drop-shadow(0 0 50px rgba(0,255,136,0.7))}}
+@keyframes iconFloat{0%,100%{transform:translateY(0) rotateY(0deg)}50%{transform:translateY(-10px) rotateY(10deg)}}
+
+.acts-banner{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:15px 0;max-width:900px}
+.act-chip{background:linear-gradient(135deg,rgba(0,168,84,0.2),rgba(0,255,136,0.1));border:1px solid rgba(0,255,136,0.4);border-radius:20px;padding:6px 15px;font-size:11px;color:var(--green);font-weight:600;letter-spacing:1px;transition:all 0.3s}
+.act-chip:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.05)}
+
+.splash-btns{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+.btn-main{font-family:'Orbitron',monospace;font-size:14px;font-weight:700;letter-spacing:3px;padding:16px 35px;border:none;border-radius:8px;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;text-transform:uppercase}
+.btn-start{background:linear-gradient(135deg,#00CC66,#00FF88);color:#050e1a;box-shadow:0 0 30px rgba(0,255,136,0.4)}
+.btn-start:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(0,255,136,0.7)}
+.btn-howto{background:transparent;border:2px solid var(--gold);color:var(--gold);box-shadow:var(--gold-glow)}
+.btn-howto:hover{background:rgba(255,215,0,0.1);transform:translateY(-3px)}
+.btn-secondary{font-family:'Exo 2',sans-serif;font-size:13px;padding:12px 25px;border-radius:8px;cursor:pointer;transition:all 0.3s;font-weight:600}
+.btn-danger{background:linear-gradient(135deg,#CC2244,#FF3355);color:#fff;border:none;box-shadow:var(--red-glow)}
+.btn-danger:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(255,51,85,0.8)}
+.btn-neutral{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);color:#fff}
+.btn-neutral:hover{background:rgba(255,255,255,0.2)}
+.btn-gold{background:linear-gradient(135deg,#B8860B,#FFD700);color:#050e1a;border:none;font-weight:700}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:var(--gold-glow)}
+
+/* ========= HOWTO MODAL ========= */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-box{background:linear-gradient(135deg,#0D2137,#091828);border:2px solid var(--emerald);border-radius:20px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;padding:30px;box-shadow:var(--border-glow),0 0 60px rgba(0,0,0,0.5)}
+.modal-title{font-family:'Orbitron',monospace;color:var(--gold);font-size:22px;margin-bottom:20px;text-align:center}
+.howto-section{margin-bottom:20px}
+.howto-section h3{color:var(--green);font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid rgba(0,255,136,0.3);padding-bottom:5px}
+.howto-section p,.howto-section li{font-size:13px;line-height:1.7;color:var(--text-bright);margin-bottom:6px}
+.howto-section ul{padding-left:20px}
+.howto-section li{list-style:none;padding-left:20px;position:relative}
+.howto-section li::before{content:'▶';position:absolute;left:0;color:var(--green);font-size:10px;top:4px}
+
+/* ========= PLAYER SETUP ========= */
+#setup{padding:30px 20px}
+.setup-title{font-family:'Orbitron',monospace;font-size:clamp(20px,4vw,36px);color:var(--gold);text-align:center;margin-bottom:30px;text-shadow:var(--gold-glow)}
+.player-count-select{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+.pcount-btn{width:60px;height:60px;border-radius:50%;border:2px solid var(--text-dim);background:transparent;color:var(--text-dim);font-size:22px;font-weight:700;cursor:pointer;transition:all 0.3s;font-family:'Orbitron',monospace}
+.pcount-btn.active{border-color:var(--green);color:var(--green);background:rgba(0,255,136,0.1);box-shadow:var(--border-glow)}
+.pcount-btn:hover{border-color:var(--gold);color:var(--gold)}
+.players-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:900px;width:100%;margin:0 auto 30px}
+.player-card-setup{background:linear-gradient(135deg,#0D2137,#091828);border:2px solid rgba(0,255,136,0.3);border-radius:15px;padding:20px;transition:all 0.3s}
+.player-card-setup:hover{border-color:var(--green);box-shadow:var(--border-glow)}
+.player-num-badge{font-family:'Orbitron',monospace;font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:12px}
+.player-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(0,255,136,0.3);border-radius:8px;padding:10px 14px;color:#fff;font-size:14px;font-family:'Exo 2',sans-serif;transition:all 0.3s}
+.player-input:focus{outline:none;border-color:var(--green);box-shadow:0 0 10px rgba(0,255,136,0.3)}
+.avatar-select{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.avatar-btn{width:40px;height:40px;border-radius:8px;border:2px solid transparent;background:rgba(255,255,255,0.05);font-size:20px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center}
+.avatar-btn.selected{border-color:var(--gold);background:rgba(255,215,0,0.15);box-shadow:0 0 10px rgba(255,215,0,0.4)}
+.avatar-btn:hover{transform:scale(1.1)}
+
+/* ========= GAME SCREEN ========= */
+#game{padding:10px;min-height:100vh;display:flex!important;flex-direction:column}
+.game-header{display:flex;align-items:center;justify-content:space-between;padding:10px 15px;background:rgba(13,33,55,0.9);border:1px solid rgba(0,255,136,0.2);border-radius:12px;margin-bottom:10px;flex-wrap:wrap;gap:10px}
+.game-title-small{font-family:'Orbitron',monospace;font-size:14px;color:var(--gold);letter-spacing:2px}
+.game-timer{font-family:'Share Tech Mono',monospace;font-size:20px;color:var(--neon-cyan);background:rgba(0,245,255,0.1);padding:8px 15px;border-radius:8px;border:1px solid rgba(0,245,255,0.3)}
+.game-round{font-size:13px;color:var(--text-dim)}
+.game-ctrl-btns{display:flex;gap:8px}
+.ctrl-btn{font-size:11px;padding:8px 15px;border-radius:6px;cursor:pointer;border:none;font-weight:600;font-family:'Exo 2',sans-serif;transition:all 0.2s}
+.ctrl-pause{background:rgba(255,140,0,0.2);border:1px solid var(--orange);color:var(--orange)}
+.ctrl-reset{background:rgba(255,51,85,0.2);border:1px solid var(--red);color:var(--red)}
+.ctrl-new{background:rgba(0,255,136,0.2);border:1px solid var(--green);color:var(--green)}
+
+.game-body{display:grid;grid-template-columns:1fr 280px;gap:15px;flex:1}
+@media(max-width:768px){.game-body{grid-template-columns:1fr}}
+
+/* LEADERBOARD SIDEBAR */
+.leaderboard-panel{background:linear-gradient(180deg,#0D2137,#091828);border:1px solid rgba(0,255,136,0.2);border-radius:15px;padding:15px;height:fit-content;position:sticky;top:10px}
+.lb-title{font-family:'Orbitron',monospace;font-size:13px;color:var(--gold);letter-spacing:2px;text-align:center;margin-bottom:15px;padding-bottom:10px;border-bottom:1px solid rgba(255,215,0,0.2)}
+.lb-entry{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;margin-bottom:8px;transition:all 0.3s;border:1px solid transparent}
+.lb-entry.active-player{border-color:var(--green);background:rgba(0,255,136,0.05);box-shadow:var(--border-glow)}
+.lb-rank{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;min-width:30px}
+.lb-rank.r1{color:var(--gold)}
+.lb-rank.r2{color:#C0C0C0}
+.lb-rank.r3{color:#CD7F32}
+.lb-rank.r4,.lb-rank.r5{color:var(--text-dim)}
+.lb-avatar{font-size:22px;min-width:30px;text-align:center}
+.lb-name{font-size:13px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-score{font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700}
+.lb-score.positive{color:var(--green)}
+.lb-score.negative{color:var(--red)}
+.compliance-bar-wrap{margin-top:5px}
+.compliance-label{font-size:10px;color:var(--text-dim);display:flex;justify-content:space-between;margin-bottom:3px}
+.compliance-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.compliance-fill{height:100%;transition:width 0.5s ease;border-radius:3px}
+
+/* MILESTONES */
+.milestone-panel{background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.2);border-radius:10px;padding:12px;margin-top:15px}
+.ms-title{font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.milestone-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-dim);margin-bottom:6px;padding:6px;border-radius:6px;transition:all 0.3s}
+.milestone-item.achieved{color:var(--gold);background:rgba(255,215,0,0.08)}
+.milestone-icon{font-size:16px}
+
+/* MAIN GAME AREA */
+.main-game-area{display:flex;flex-direction:column;gap:12px}
+
+/* ACTIVE PLAYER BANNER */
+.active-player-banner{background:linear-gradient(135deg,rgba(0,168,84,0.2),rgba(0,255,136,0.05));border:2px solid rgba(0,255,136,0.4);border-radius:12px;padding:15px 20px;display:flex;align-items:center;gap:15px}
+.apb-avatar{font-size:36px}
+.apb-info{flex:1}
+.apb-name{font-size:18px;font-weight:700;color:var(--text-bright)}
+.apb-turn{font-size:12px;color:var(--green);letter-spacing:2px;text-transform:uppercase}
+.apb-score{font-family:'Share Tech Mono',monospace;font-size:20px;font-weight:700;color:var(--gold)}
+.apb-compliance{font-size:12px;color:var(--text-dim)}
+
+/* QUESTION CARD */
+.question-zone{perspective:1000px}
+.q-card{background:linear-gradient(135deg,#0D2137 0%,#091828 50%,#0D2137 100%);border-radius:20px;padding:25px;position:relative;overflow:hidden;min-height:280px;transition:transform 0.3s;border:1px solid rgba(0,255,136,0.2)}
+.q-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(0,255,136,0.05),transparent 50%);pointer-events:none}
+.q-category-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:15px}
+.q-level-badge{display:inline-flex;margin-left:8px;padding:4px 12px;border-radius:15px;font-size:11px;font-weight:700}
+.q-level-badge.easy{background:rgba(0,255,136,0.2);color:var(--green);border:1px solid rgba(0,255,136,0.4)}
+.q-level-badge.medium{background:rgba(255,140,0,0.2);color:var(--orange);border:1px solid rgba(255,140,0,0.4)}
+.q-level-badge.hard{background:rgba(255,51,85,0.2);color:var(--red);border:1px solid rgba(255,51,85,0.4)}
+.q-text{font-size:clamp(14px,2.2vw,17px);line-height:1.7;margin-bottom:20px;color:var(--text-bright);font-weight:400}
+.q-section-ref{font-size:11px;color:var(--text-dim);font-style:italic;margin-bottom:15px}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.q-options{grid-template-columns:1fr}}
+.option-btn{background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 15px;color:var(--text-bright);font-size:13px;cursor:pointer;text-align:left;transition:all 0.3s;line-height:1.4;font-family:'Exo 2',sans-serif}
+.option-btn:hover{border-color:var(--neon-cyan);background:rgba(0,245,255,0.08);transform:translateX(3px)}
+.option-btn.correct{border-color:var(--green)!important;background:rgba(0,255,136,0.15)!important;color:var(--green)!important;animation:correctPulse 0.5s ease}
+.option-btn.wrong{border-color:var(--red)!important;background:rgba(255,51,85,0.15)!important;color:var(--red)!important;animation:wrongShake 0.4s ease}
+.option-btn.disabled{pointer-events:none;opacity:0.6}
+.option-prefix{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--neon-cyan);margin-right:8px}
+
+@keyframes correctPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+@keyframes wrongShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* DICE SECTION */
+.dice-section{display:flex;align-items:center;gap:15px;background:rgba(13,33,55,0.5);border-radius:12px;padding:15px;border:1px solid rgba(0,255,136,0.15)}
+.dice-3d{width:60px;height:60px;cursor:pointer;transition:transform 0.2s;user-select:none}
+.dice-3d:hover{transform:scale(1.1) rotate(10deg)}
+.dice-3d:active{transform:scale(0.9)}
+.dice-3d.rolling{animation:diceRoll 0.6s ease}
+@keyframes diceRoll{0%{transform:rotate(0deg) scale(1)}25%{transform:rotate(180deg) scale(1.2)}50%{transform:rotate(360deg) scale(0.8)}75%{transform:rotate(540deg) scale(1.1)}100%{transform:rotate(720deg) scale(1)}}
+.dice-info{flex:1}
+.dice-result{font-family:'Share Tech Mono',monospace;font-size:28px;color:var(--gold)}
+.dice-sub{font-size:12px;color:var(--text-dim);margin-top:3px}
+.roll-btn{font-family:'Orbitron',monospace;font-size:12px;padding:12px 20px;background:linear-gradient(135deg,#1a3a5c,#0D2137);border:1.5px solid var(--neon-cyan);color:var(--neon-cyan);border-radius:8px;cursor:pointer;letter-spacing:2px;transition:all 0.3s}
+.roll-btn:hover{background:rgba(0,245,255,0.1);box-shadow:0 0 20px rgba(0,245,255,0.3)}
+.roll-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+/* BOARD ZONES */
+.tax-zones{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:600px){.tax-zones{grid-template-columns:repeat(2,1fr)}}
+.zone-tile{background:rgba(13,33,55,0.7);border:1.5px solid transparent;border-radius:10px;padding:10px;text-align:center;transition:all 0.3s;cursor:default;position:relative}
+.zone-tile.active-zone{animation:zoneActive 1s ease infinite alternate}
+@keyframes zoneActive{0%{box-shadow:0 0 10px currentColor}100%{box-shadow:0 0 25px currentColor,inset 0 0 10px rgba(255,255,255,0.05)}}
+.zone-tile.income{border-color:rgba(0,255,136,0.5);color:var(--green)}
+.zone-tile.vat{border-color:rgba(0,245,255,0.5);color:var(--neon-cyan)}
+.zone-tile.capital{border-color:rgba(255,215,0,0.5);color:var(--gold)}
+.zone-tile.admin{border-color:rgba(155,89,182,0.5);color:var(--purple)}
+.zone-tile.petroleum{border-color:rgba(255,140,0,0.5);color:var(--orange)}
+.zone-tile.stamp{border-color:rgba(192,192,192,0.5);color:#C0C0C0}
+.zone-tile.penalty{border-color:rgba(255,51,85,0.5);color:var(--red)}
+.zone-tile.bonus{border-color:rgba(255,215,0,0.7);color:var(--gold);background:rgba(255,215,0,0.05)}
+.zone-icon{font-size:22px;display:block;margin-bottom:4px}
+.zone-name{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.zone-pts{font-family:'Share Tech Mono',monospace;font-size:11px;margin-top:3px;opacity:0.7}
+
+/* POP-UP INSIGHT */
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.popup-overlay.show{display:flex}
+.popup-box{max-width:500px;width:100%;border-radius:20px;padding:30px;animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden}
+.popup-box.compliance{background:linear-gradient(135deg,#0a3a20,#0D2137);border:2px solid var(--green);box-shadow:0 0 50px rgba(0,255,136,0.4)}
+.popup-box.violation{background:linear-gradient(135deg,#3a0a15,#1a0810);border:2px solid var(--red);box-shadow:0 0 50px rgba(255,51,85,0.5)}
+.popup-box.bonus{background:linear-gradient(135deg,#3a300a,#1a1808);border:2px solid var(--gold);box-shadow:0 0 50px rgba(255,215,0,0.5)}
+@keyframes popIn{from{transform:scale(0.5) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(0deg);opacity:1}}
+.popup-icon{font-size:50px;text-align:center;margin-bottom:10px;display:block}
+.popup-title{font-family:'Orbitron',monospace;font-size:18px;text-align:center;margin-bottom:10px}
+.popup-title.compliance{color:var(--green)}
+.popup-title.violation{color:var(--red)}
+.popup-title.bonus{color:var(--gold)}
+.popup-term{font-size:22px;font-weight:700;text-align:center;margin:10px 0;padding:10px;border-radius:10px;background:rgba(255,255,255,0.05)}
+.popup-body{font-size:13px;line-height:1.7;color:var(--text-bright);text-align:center;margin-bottom:10px}
+.popup-ref{font-size:11px;color:var(--text-dim);text-align:center;font-style:italic;padding:8px;background:rgba(0,0,0,0.3);border-radius:8px;margin-bottom:15px}
+.popup-pts{font-family:'Orbitron',monospace;font-size:24px;text-align:center;font-weight:900}
+.popup-pts.pos{color:var(--green)}
+.popup-pts.neg{color:var(--red)}
+.popup-close{width:100%;margin-top:15px}
+
+/* END SCREEN */
+#endgame{padding:20px}
+.end-title{font-family:'Orbitron',monospace;font-size:clamp(22px,5vw,48px);text-align:center;background:linear-gradient(135deg,#FFD700,#00FF88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:5px}
+.end-subtitle{text-align:center;color:var(--text-dim);letter-spacing:3px;font-size:14px;margin-bottom:30px}
+.winner-card{background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(0,255,136,0.05));border:2px solid var(--gold);border-radius:20px;padding:25px;text-align:center;max-width:500px;margin:0 auto 30px;box-shadow:var(--gold-glow)}
+.winner-crown{font-size:60px;display:block;animation:crownBounce 1s ease-in-out infinite alternate}
+@keyframes crownBounce{0%{transform:translateY(0)}100%{transform:translateY(-10px)}}
+.winner-name{font-family:'Orbitron',monospace;font-size:28px;color:var(--gold);margin:10px 0 5px}
+.winner-score{font-family:'Share Tech Mono',monospace;font-size:20px;color:var(--green)}
+
+/* RESULTS TABLE */
+.results-table{width:100%;max-width:800px;border-collapse:collapse;margin:0 auto 30px}
+.results-table th{background:rgba(0,255,136,0.1);color:var(--green);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:12px;text-align:left;border-bottom:1px solid rgba(0,255,136,0.3)}
+.results-table td{padding:12px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;vertical-align:middle}
+.results-table tr:hover td{background:rgba(255,255,255,0.02)}
+.compliance-tag{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px}
+.compliance-tag.compliant{background:rgba(0,255,136,0.2);color:var(--green);border:1px solid rgba(0,255,136,0.4)}
+.compliance-tag.non-compliant{background:rgba(255,51,85,0.2);color:var(--red);border:1px solid rgba(255,51,85,0.4)}
+
+/* WORD CLOUD */
+.wordcloud-section{max-width:900px;width:100%;margin:0 auto 30px}
+.wc-title{font-family:'Orbitron',monospace;font-size:18px;color:var(--neon-cyan);text-align:center;margin-bottom:20px}
+.wordcloud-container{background:rgba(13,33,55,0.7);border:1px solid rgba(0,255,136,0.2);border-radius:20px;padding:25px;position:relative;min-height:200px}
+#wordcloud-canvas{width:100%;max-height:300px}
+.wc-legend{display:flex;gap:20px;justify-content:center;margin-top:15px;flex-wrap:wrap}
+.wc-legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+.wc-dot{width:12px;height:12px;border-radius:50%}
+
+/* LAW REFERENCES */
+.law-refs{max-width:800px;width:100%;margin:0 auto 30px}
+.law-ref-item{background:rgba(13,33,55,0.7);border-left:3px solid var(--gold);border-radius:8px;padding:12px 15px;margin-bottom:10px}
+.law-ref-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:5px}
+.law-ref-body{font-size:12px;color:var(--text-dim);line-height:1.6}
+
+/* CREDIT FOOTER */
+.game-credit{text-align:center;font-size:11px;color:var(--text-dim);margin-top:20px;padding:15px;border-top:1px solid rgba(0,255,136,0.1);letter-spacing:1px}
+.game-credit span{color:var(--green)}
+
+/* PAUSE OVERLAY */
+.pause-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:400;align-items:center;justify-content:center;flex-direction:column;gap:20px;backdrop-filter:blur(10px)}
+.pause-overlay.show{display:flex}
+.pause-title{font-family:'Orbitron',monospace;font-size:48px;color:var(--gold);animation:pausePulse 1s ease-in-out infinite alternate}
+@keyframes pausePulse{0%{opacity:0.5}100%{opacity:1}}
+
+/* PROGRESS BAR */
+.q-progress{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.q-progress-bar{flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.q-progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--neon-cyan));border-radius:3px;transition:width 0.3s}
+.q-progress-text{font-size:12px;color:var(--text-dim);white-space:nowrap}
+
+/* SCORE ANIMATION */
+.score-popup-anim{position:fixed;pointer-events:none;font-family:'Orbitron',monospace;font-size:28px;font-weight:900;z-index:600;animation:scoreFloat 1.5s ease-out forwards}
+@keyframes scoreFloat{0%{opacity:1;transform:translateY(0) scale(1)}50%{opacity:1;transform:translateY(-60px) scale(1.2)}100%{opacity:0;transform:translateY(-120px) scale(0.8)}}
+
+/* GAME OVER CONFETTI */
+.confetti-piece{position:fixed;width:10px;height:10px;z-index:300;pointer-events:none;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg)}100%{transform:translateY(110vh) rotate(720deg)}}
+
+/* REPLAY BUTTON */
+.btn-replay{background:linear-gradient(135deg,#1a1a5c,#3333AA);border:2px solid #6666FF;color:#AAAAFF;font-family:'Orbitron',monospace;font-size:13px;padding:14px 30px;border-radius:8px;cursor:pointer;letter-spacing:2px;transition:all 0.3s}
+.btn-replay:hover{background:rgba(100,100,255,0.2);transform:translateY(-3px);box-shadow:0 0 30px rgba(100,100,255,0.4)}
+
+/* UTILITY */
+.text-center{text-align:center}
+.mb-20{margin-bottom:20px}
+.hidden{display:none!important}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,136,0.3),transparent);margin:15px 0}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:rgba(255,255,255,0.05)}::-webkit-scrollbar-thumb{background:rgba(0,255,136,0.3);border-radius:3px}
+
+/* FEEDBACK MESSAGE */
+.feedback-bar{padding:12px 20px;border-radius:10px;text-align:center;font-weight:600;font-size:13px;margin-top:10px;transition:all 0.3s;min-height:44px}
+.feedback-bar.success{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--green)}
+.feedback-bar.fail{background:rgba(255,51,85,0.1);border:1px solid rgba(255,51,85,0.3);color:var(--red)}
+.feedback-bar.neutral{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-dim)}
+
+/* NEXT PLAYER */
+.next-player-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:350;align-items:center;justify-content:center;flex-direction:column;gap:15px}
+.next-player-overlay.show{display:flex}
+.np-avatar{font-size:80px;animation:npFloat 1s ease-in-out infinite alternate}
+@keyframes npFloat{0%{transform:translateY(0)}100%{transform:translateY(-15px)}}
+.np-name{font-family:'Orbitron',monospace;font-size:32px;color:var(--gold)}
+.np-ready{font-size:16px;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase}
+.np-countdown{font-family:'Share Tech Mono',monospace;font-size:80px;color:var(--neon-cyan);font-weight:900;animation:countPulse 1s ease-in-out}
+@keyframes countPulse{0%{transform:scale(1.5);opacity:0}100%{transform:scale(1);opacity:1}}
+</style>
+</head>
+<body>
+<canvas id="particles-canvas"></canvas>
+
+<!-- =========== SPLASH SCREEN =========== -->
+<div class="screen active" id="splash">
+  <div class="splash-bg"></div>
+
+  <!-- 3D Game Logo SVG -->
+  <div class="game-icon-3d">
+    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#00FF88"/><stop offset="100%" stop-color="#00F5FF"/></linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00CC66"/><stop offset="100%" stop-color="#005533"/></linearGradient>
+        <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFD700"/><stop offset="100%" stop-color="#FF8C00"/></linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <!-- Naira coin base -->
+      <circle cx="60" cy="60" r="55" fill="#0a1828" stroke="url(#g1)" stroke-width="3" filter="url(#glow)"/>
+      <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(0,255,136,0.2)" stroke-width="1"/>
+      <!-- N symbol with upward arrow -->
+      <path d="M32 80 L32 40 L52 70 L52 40" stroke="url(#g1)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M68 80 L68 40 L88 70 L88 40" stroke="url(#g1)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <line x1="32" y1="55" x2="52" y2="55" stroke="url(#g3)" stroke-width="3"/>
+      <line x1="68" y1="55" x2="88" y2="55" stroke="url(#g3)" stroke-width="3"/>
+      <!-- Rising arrow -->
+      <path d="M55 35 L60 28 L65 35" stroke="#00FF88" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <line x1="60" y1="28" x2="60" y2="42" stroke="#00FF88" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Stars -->
+      <circle cx="20" cy="20" r="3" fill="#FFD700" opacity="0.8"/>
+      <circle cx="100" cy="20" r="2" fill="#00FF88" opacity="0.8"/>
+      <circle cx="15" cy="90" r="2" fill="#00F5FF" opacity="0.6"/>
+      <circle cx="105" cy="90" r="3" fill="#FFD700" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <div class="game-logo-3d">
+    <div class="logo-title">TAXNOMICS ARENA™</div>
+    <div class="logo-subtitle">Nigeria 2025 Reform Quest</div>
+    <div class="logo-tagline">⚖️ Where Tax Knowledge Meets Strategy ⚖️</div>
+  </div>
+
+  <!-- FinPolNomics Logo Badge -->
+  <div class="finpolnomics-logo">
+    <div class="fpn-badge">
+      <div class="fpn-icon">FP</div>
+      <div class="fpn-text">
+        <div class="fpn-name">FinPolNomics<br>GREEN FINANCE</div>
+        <div class="fpn-sub">× FinPolNomics ANALYTICA</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acts-banner">
+    <div class="act-chip">📜 Nigeria Tax Act 2025</div>
+    <div class="act-chip">🏛️ Tax Administration Act 2025</div>
+    <div class="act-chip">⚙️ Revenue Service Act 2025</div>
+    <div class="act-chip">🤝 Joint Revenue Board Act 2025</div>
+  </div>
+
+  <div class="splash-btns">
+    <button class="btn-main btn-start" onclick="showSetup()">▶ START GAME</button>
+    <button class="btn-main btn-howto" onclick="showHowTo()">📖 HOW TO PLAY</button>
+  </div>
+
+  <div class="game-credit" style="margin-top:30px">
+    Designed & Built By: <span>FinPolNomics GREEN FINANCE</span> & <span>FinPolNomics ANALYTICA</span><br>
+    Based on the Nigeria Tax Reform Acts 2025 | Educational & Awareness Game
+  </div>
+</div>
+
+<!-- =========== HOW TO PLAY MODAL =========== -->
+<div class="modal-overlay" id="howto-modal">
+  <div class="modal-box">
+    <div class="modal-title">📖 HOW TO PLAY — TAXNOMICS ARENA™</div>
+    <div class="howto-section">
+      <h3>🎯 Objective</h3>
+      <p>Navigate Nigeria's tax landscape, answer questions from the 4 Nigeria Tax Acts 2025, earn Compliance Points, and become the ultimate Tax Champion. The player with the highest Compliance Score wins!</p>
+    </div>
+    <div class="howto-section">
+      <h3>🎮 Game Flow</h3>
+      <ul>
+        <li>Set up 1–5 players, enter names and pick avatars.</li>
+        <li>Each turn: Roll the dice to determine your Tax Zone category.</li>
+        <li>Answer a question from that zone's Act/topic to earn points.</li>
+        <li>Correct answer = +Compliance Points &amp; positive pop-up insight.</li>
+        <li>Wrong answer = -Points &amp; non-compliance warning pop-up.</li>
+        <li>Special zones (🎁 Bonus, ⚠️ Penalty) trigger automatic events.</li>
+        <li>Game ends after all players complete their rounds (default: 8 rounds each).</li>
+      </ul>
+    </div>
+    <div class="howto-section">
+      <h3>📊 Scoring</h3>
+      <ul>
+        <li><strong style="color:#00FF88">Easy Question:</strong> +10 pts correct / -5 pts wrong</li>
+        <li><strong style="color:#FF8C00">Medium Question:</strong> +20 pts correct / -10 pts wrong</li>
+        <li><strong style="color:#FF3355">Hard Question:</strong> +35 pts correct / -15 pts wrong</li>
+        <li><strong style="color:#FFD700">Bonus Zone:</strong> +25 pts automatic</li>
+        <li><strong style="color:#FF3355">Penalty Zone:</strong> -20 pts automatic</li>
+      </ul>
+    </div>
+    <div class="howto-section">
+      <h3>🏆 Tax Zones</h3>
+      <ul>
+        <li>💚 <strong>Income Tax</strong> — Companies &amp; Individual taxation</li>
+        <li>🔵 <strong>VAT</strong> — Value Added Tax provisions</li>
+        <li>🟡 <strong>Capital Gains</strong> — Assets, gains &amp; disposal</li>
+        <li>🟣 <strong>Tax Admin</strong> — Registration, filing &amp; compliance</li>
+        <li>🟠 <strong>Petroleum</strong> — Hydrocarbon &amp; oil sector tax</li>
+        <li>⚪ <strong>Stamp Duty</strong> — Dutiable instruments</li>
+        <li>🔴 <strong>Penalty</strong> — Automatic point deduction!</li>
+        <li>⭐ <strong>Bonus</strong> — Automatic point reward!</li>
+      </ul>
+    </div>
+    <div class="howto-section">
+      <h3>🏅 Milestones</h3>
+      <ul>
+        <li>🌱 <strong>Tax Seedling</strong> — First correct answer</li>
+        <li>📋 <strong>Compliance Star</strong> — 3 consecutive correct answers</li>
+        <li>🏛️ <strong>Act Scholar</strong> — Answer from all 4 Acts</li>
+        <li>💰 <strong>Tax Champion</strong> — Reach 100+ points</li>
+        <li>⚖️ <strong>Grand Arbiter</strong> — Finish with 90%+ compliance rate</li>
+      </ul>
+    </div>
+    <button class="btn-secondary btn-gold" style="width:100%;margin-top:10px" onclick="closeHowTo()">Got It! Let's Play ▶</button>
+  </div>
+</div>
+
+<!-- =========== PLAYER SETUP =========== -->
+<div class="screen" id="setup">
+  <div class="setup-title">⚔️ ASSEMBLE YOUR PLAYERS</div>
+  <div style="color:var(--text-dim);text-align:center;font-size:14px;margin-bottom:20px">Select number of players, enter names &amp; choose your avatar</div>
+
+  <div class="player-count-select" id="pcount-btns">
+    <button class="pcount-btn" onclick="setPlayerCount(1)">1</button>
+    <button class="pcount-btn active" onclick="setPlayerCount(2)">2</button>
+    <button class="pcount-btn" onclick="setPlayerCount(3)">3</button>
+    <button class="pcount-btn" onclick="setPlayerCount(4)">4</button>
+    <button class="pcount-btn" onclick="setPlayerCount(5)">5</button>
+  </div>
+
+  <div class="players-grid" id="players-grid"></div>
+
+  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+    <button class="btn-secondary btn-neutral" onclick="showScreen('splash')">← Back</button>
+    <button class="btn-main btn-start" onclick="startGame()">🚀 LAUNCH GAME</button>
+  </div>
+</div>
+
+<!-- =========== MAIN GAME =========== -->
+<div class="screen" id="game">
+  <!-- Header -->
+  <div class="game-header">
+    <div>
+      <div class="game-title-small">TAXNOMICS ARENA™</div>
+      <div class="game-round" id="round-display">Round 1 of 8</div>
+    </div>
+    <div class="game-timer" id="game-timer">00:00</div>
+    <div class="game-ctrl-btns">
+      <button class="ctrl-btn ctrl-pause" onclick="togglePause()" id="pause-btn">⏸ PAUSE</button>
+      <button class="ctrl-btn ctrl-reset" onclick="confirmReset()">↺ RESET</button>
+      <button class="ctrl-btn ctrl-new" onclick="showScreen('splash')">⊕ NEW</button>
+    </div>
+  </div>
+
+  <div class="game-body">
+    <!-- Main Area -->
+    <div class="main-game-area">
+      <!-- Active Player Banner -->
+      <div class="active-player-banner" id="active-player-banner">
+        <div class="apb-avatar" id="apb-avatar">🧑</div>
+        <div class="apb-info">
+          <div class="apb-name" id="apb-name">Player 1</div>
+          <div class="apb-turn">IT'S YOUR TURN</div>
+          <div class="apb-compliance" id="apb-compliance">Compliance: High</div>
+        </div>
+        <div>
+          <div class="apb-score" id="apb-score">0 pts</div>
+        </div>
+      </div>
+
+      <!-- Dice Section -->
+      <div class="dice-section">
+        <div class="dice-3d" id="dice-display" onclick="rollDice()">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="60" height="60" rx="10" fill="#0D2137" stroke="#00FF88" stroke-width="2"/>
+            <rect x="2" y="2" width="56" height="56" rx="9" fill="url(#dg)" opacity="0.3"/>
+            <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00FF88"/><stop offset="100%" stop-color="#00F5FF"/></linearGradient></defs>
+            <g id="dice-dots"></g>
+          </svg>
+        </div>
+        <div class="dice-info">
+          <div class="dice-result" id="dice-result">?</div>
+          <div class="dice-sub" id="dice-sub">Click dice or button to roll</div>
+        </div>
+        <button class="roll-btn" id="roll-btn" onclick="rollDice()">🎲 ROLL DICE</button>
+      </div>
+
+      <!-- Tax Zones -->
+      <div class="tax-zones" id="tax-zones">
+        <div class="zone-tile income" id="zone-income"><span class="zone-icon">💚</span><div class="zone-name">Income Tax</div><div class="zone-pts">±10-35pts</div></div>
+        <div class="zone-tile vat" id="zone-vat"><span class="zone-icon">🔵</span><div class="zone-name">VAT</div><div class="zone-pts">±10-35pts</div></div>
+        <div class="zone-tile capital" id="zone-capital"><span class="zone-icon">💰</span><div class="zone-name">Capital Gains</div><div class="zone-pts">±10-35pts</div></div>
+        <div class="zone-tile admin" id="zone-admin"><span class="zone-icon">🏛️</span><div class="zone-name">Tax Admin</div><div class="zone-pts">±10-35pts</div></div>
+        <div class="zone-tile petroleum" id="zone-petroleum"><span class="zone-icon">⛽</span><div class="zone-name">Petroleum</div><div class="zone-pts">±10-35pts</div></div>
+        <div class="zone-tile stamp" id="zone-stamp"><span class="zone-icon">📜</span><div class="zone-name">Stamp Duty</div><div class="zone-pts">±10-35pts</div></div>
+        <div class="zone-tile penalty" id="zone-penalty"><span class="zone-icon">⚠️</span><div class="zone-name">Penalty!</div><div class="zone-pts">-20pts</div></div>
+        <div class="zone-tile bonus" id="zone-bonus"><span class="zone-icon">⭐</span><div class="zone-name">Bonus!</div><div class="zone-pts">+25pts</div></div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="q-progress" id="q-progress" style="display:none">
+        <div class="q-progress-bar"><div class="q-progress-fill" id="q-progress-fill" style="width:0%"></div></div>
+        <div class="q-progress-text" id="q-progress-text">Q 0/0</div>
+      </div>
+
+      <!-- Question Card -->
+      <div class="question-zone" id="question-zone" style="display:none">
+        <div class="q-card" id="q-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:15px">
+            <div class="q-category-badge" id="q-cat-badge">Category</div>
+            <div class="q-level-badge" id="q-level-badge">Medium</div>
+          </div>
+          <div class="q-text" id="q-text">Question text here...</div>
+          <div class="q-section-ref" id="q-ref">📚 Reference: Section X, Nigeria Tax Act 2025</div>
+          <div class="q-options" id="q-options"></div>
+          <div class="feedback-bar neutral" id="feedback-bar" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- Waiting message -->
+      <div id="waiting-msg" style="text-align:center;padding:30px;color:var(--text-dim);font-size:16px">
+        🎲 Roll the dice to reveal your Tax Zone challenge!
+      </div>
+    </div>
+
+    <!-- Leaderboard Sidebar -->
+    <div class="leaderboard-panel">
+      <div class="lb-title">🏆 LEADERBOARD</div>
+      <div id="leaderboard-entries"></div>
+
+      <div class="divider"></div>
+      <div style="font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:8px">Compliance Meter</div>
+      <div id="compliance-meters"></div>
+
+      <div class="milestone-panel">
+        <div class="ms-title">🏅 Milestones</div>
+        <div id="milestones-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== END GAME SCREEN =========== -->
+<div class="screen" id="endgame">
+  <div class="end-title">GAME OVER!</div>
+  <div class="end-subtitle">THE RESULTS ARE IN</div>
+
+  <div class="winner-card" id="winner-card">
+    <span class="winner-crown">👑</span>
+    <div class="winner-name" id="winner-name">Champion</div>
+    <div class="winner-score" id="winner-score">Score: 0</div>
+    <div style="font-size:13px;color:var(--text-dim);margin-top:5px" id="winner-tag"></div>
+  </div>
+
+  <table class="results-table" id="results-table">
+    <thead>
+      <tr>
+        <th>Rank</th><th>Player</th><th>Score</th><th>Correct</th><th>Wrong</th><th>Compliance</th><th>Classification</th>
+      </tr>
+    </thead>
+    <tbody id="results-tbody"></tbody>
+  </table>
+
+  <!-- Word Cloud Section -->
+  <div class="wordcloud-section">
+    <div class="wc-title">📊 SENTIMENT WORD CLOUD</div>
+    <div class="wordcloud-container">
+      <canvas id="wordcloud-canvas" height="300"></canvas>
+    </div>
+    <div class="wc-legend">
+      <div class="wc-legend-item"><div class="wc-dot" style="background:#00FF88"></div><span>Compliance Terms</span></div>
+      <div class="wc-legend-item"><div class="wc-dot" style="background:#FF3355"></div><span>Non-Compliance Terms</span></div>
+      <div class="wc-legend-item"><div class="wc-dot" style="background:#FFD700"></div><span>Neutral/Advisory</span></div>
+    </div>
+  </div>
+
+  <!-- Law References -->
+  <div class="law-refs" id="law-refs"></div>
+
+  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;margin-top:20px">
+    <button class="btn-replay" onclick="replayGame()">↺ REPLAY</button>
+    <button class="btn-main btn-start" onclick="showSetup()">🆕 NEW GAME</button>
+    <button class="btn-secondary btn-neutral" onclick="showScreen('splash')">🏠 HOME</button>
+  </div>
+
+  <div class="game-credit">
+    🌿 Designed &amp; Built By: <span>FinPolNomics GREEN FINANCE</span> &amp; <span>FinPolNomics ANALYTICA</span><br>
+    Based on the Nigeria Tax Reform Acts 2025 · For Educational &amp; Public Awareness Purposes
+  </div>
+</div>
+
+<!-- =========== POPUP INSIGHT =========== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-box" id="popup-box">
+    <span class="popup-icon" id="popup-icon">✅</span>
+    <div class="popup-title" id="popup-title">Excellent Move!</div>
+    <div class="popup-term" id="popup-term">Tax Compliance</div>
+    <div class="popup-body" id="popup-body">Great job!</div>
+    <div class="popup-ref" id="popup-ref">📚 Reference</div>
+    <div class="popup-pts" id="popup-pts">+20 pts</div>
+    <button class="btn-secondary btn-gold popup-close" onclick="closePopup()">CONTINUE ▶</button>
+  </div>
+</div>
+
+<!-- PAUSE OVERLAY -->
+<div class="pause-overlay" id="pause-overlay">
+  <div class="pause-title">⏸ PAUSED</div>
+  <div style="color:var(--text-dim);font-size:16px;letter-spacing:3px">GAME IS PAUSED</div>
+  <button class="btn-main btn-start" onclick="togglePause()">▶ RESUME</button>
+</div>
+
+<!-- NEXT PLAYER OVERLAY -->
+<div class="next-player-overlay" id="next-player-overlay">
+  <div class="np-avatar" id="np-avatar">🧑</div>
+  <div class="np-name" id="np-name">Player 2</div>
+  <div class="np-ready">GET READY!</div>
+  <div class="np-countdown" id="np-countdown">3</div>
+</div>
+
+<script>
+// ==========================================
+// GAME DATA — QUESTIONS FROM NIGERIA TAX ACTS 2025
+// ==========================================
+const QUESTIONS = [
+  // ---- INCOME TAX ----
+  {id:1,cat:"income",catName:"Income Tax",act:"Nigeria Tax Act 2025",section:"Section 56 & 57",level:"easy",pts:10,
+   q:"Under the Nigeria Tax Act 2025, what is the standard corporate income tax rate for Nigerian companies?",
+   opts:["20%","25%","30%","35%"],ans:1,
+   ref:"Section 56, Nigeria Tax Act 2025 — Rate of tax for companies",
+   compTerm:"Corporate Tax Compliance",compMsg:"Excellent! Knowing the correct corporate tax rate (25%) is foundational to business tax planning and compliance under Section 56 of the Nigeria Tax Act 2025.",
+   violTerm:null},
+
+  {id:2,cat:"income",catName:"Income Tax",act:"Nigeria Tax Act 2025",section:"Section 3-5",level:"easy",pts:10,
+   q:"Under the Nigeria Tax Act 2025, which of the following is SUBJECT to income tax in Nigeria?",
+   opts:["Diplomatic salaries under treaty","Profits from Nigerian business operations","Grants from government for infrastructure","Foreign aid to NGOs"],ans:1,
+   ref:"Section 3-5, Nigeria Tax Act 2025 — Imposition and chargeability of tax",
+   compTerm:"Taxable Income Recognition",compMsg:"Profits from Nigerian business operations are chargeable to tax under Section 3-5 of the Nigeria Tax Act 2025. Understanding what is taxable is the first step to full compliance.",
+   violTerm:null},
+
+  {id:3,cat:"income",catName:"Income Tax",act:"Nigeria Tax Act 2025",section:"Section 13 & 14",level:"medium",pts:20,
+   q:"According to the Nigeria Tax Act 2025, benefits-in-kind provided to employees are:",
+   opts:["Fully exempt from income tax","Taxable as part of employment income","Only taxable if valued above ₦1 million","Taxable only for directors and senior staff"],ans:1,
+   ref:"Sections 13-14, Nigeria Tax Act 2025 — Employment income & Benefits-in-kind",
+   compTerm:"Benefits-in-Kind Taxation",compMsg:"Benefits-in-kind form part of taxable employment income under Sections 13-14. Proper valuation and reporting of benefits ensures full PAYE compliance.",
+   violTerm:null},
+
+  {id:4,cat:"income",catName:"Income Tax",act:"Nigeria Tax Act 2025",section:"Section 21",level:"medium",pts:20,
+   q:"Which of the following expenses is specifically NOT DEDUCTIBLE under the Nigeria Tax Act 2025?",
+   opts:["Business rent payments","Salaries of employees","Capital expenditure on equipment purchase","Professional service fees"],ans:2,
+   ref:"Section 21, Nigeria Tax Act 2025 — Deductions not allowed",
+   compTerm:"Allowable Deductions Mastery",compMsg:"Capital expenditure is not immediately deductible — it's eligible for capital allowances instead. Understanding deductibility limits is key to accurate tax computation.",
+   violTerm:null},
+
+  {id:5,cat:"income",catName:"Income Tax",act:"Nigeria Tax Act 2025",section:"Section 29",level:"hard",pts:35,
+   q:"The concept of 'Presumptive Taxation' under Section 29 of the Nigeria Tax Act 2025 applies primarily to:",
+   opts:["Multinational corporations","Small and informal sector businesses with difficulty keeping records","Foreign investors","Government parastatals"],ans:1,
+   ref:"Section 29, Nigeria Tax Act 2025 — Presumptive taxation",
+   compTerm:"Inclusive Tax Policy",compMsg:"Presumptive taxation broadens the tax base by including informal sector operators, promoting fairness and expanding Nigeria's revenue base sustainably.",
+   violTerm:null},
+
+  {id:6,cat:"income",catName:"Income Tax",act:"Nigeria Tax Act 2025",section:"Section 7-10",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Act 2025, Nigerian dividends received by a Nigerian company from another Nigerian company are:",
+   opts:["Fully taxable as business income","Subject to a special dividend tax rate","Generally exempt to avoid economic double taxation","Taxable only if over ₦10 million"],ans:2,
+   ref:"Sections 7-10, Nigeria Tax Act 2025 — Nigerian dividends and substitution provisions",
+   compTerm:"Dividend Exemption Planning",compMsg:"The dividend exemption rule prevents economic double taxation of company profits — a cornerstone of fair corporate tax policy under the Nigeria Tax Act 2025.",
+   violTerm:null},
+
+  {id:7,cat:"income",catName:"Income Tax",act:"Nigeria Tax Act 2025",section:"Section 58",level:"medium",pts:20,
+   q:"For individual taxpayers in Nigeria 2025, the income tax system uses:",
+   opts:["A flat 15% rate for all individuals","Progressive graduated tax rates","A flat 20% rate","A territorial-only system"],ans:1,
+   ref:"Section 58, Nigeria Tax Act 2025 — Rates of tax for individuals",
+   compTerm:"Progressive Tax Compliance",compMsg:"Nigeria's progressive individual tax system ensures those with higher incomes contribute proportionally more — reflecting the principle of vertical equity in taxation.",
+   violTerm:null},
+
+  // ---- VAT ----
+  {id:8,cat:"vat",catName:"VAT",act:"Nigeria Tax Act 2025",section:"Section 143-147",level:"easy",pts:10,
+   q:"What is the standard Value Added Tax (VAT) rate under the Nigeria Tax Act 2025?",
+   opts:["5%","7.5%","10%","15%"],ans:1,
+   ref:"Section 147, Nigeria Tax Act 2025 — Rate of VAT",
+   compTerm:"VAT Rate Compliance",compMsg:"The 7.5% VAT rate (Section 147) must be correctly charged on taxable supplies. Knowing the correct rate prevents under-collection and VAT under-remittance penalties.",
+   violTerm:null},
+
+  {id:9,cat:"vat",catName:"VAT",act:"Nigeria Tax Act 2025",section:"Section 143-145",level:"easy",pts:10,
+   q:"Under the Nigeria Tax Act 2025, which of the following is EXEMPT from VAT?",
+   opts:["Restaurant meals","Luxury cars","Basic food items (unprocessed)","Consulting services"],ans:2,
+   ref:"Sections 143-145, Nigeria Tax Act 2025 — Imposition and taxable supplies, First Schedule exemptions",
+   compTerm:"VAT Exemption Knowledge",compMsg:"Understanding VAT exemptions for basic food items helps businesses charge correctly and prevents illegal overcharging of consumers on exempt goods.",
+   violTerm:null},
+
+  {id:10,cat:"vat",catName:"VAT",act:"Nigeria Tax Act 2025",section:"Section 151-153",level:"medium",pts:20,
+   q:"A 'taxable person' under the VAT provisions of the Nigeria Tax Act 2025 must register for VAT when their annual turnover exceeds:",
+   opts:["₦5 million","₦10 million","₦25 million","₦50 million"],ans:2,
+   ref:"Sections 151-153, Nigeria Tax Act 2025 — Payment of VAT by taxable person",
+   compTerm:"VAT Registration Compliance",compMsg:"Mandatory VAT registration above the threshold ensures businesses fulfil their collection obligations and maintain proper records for audit compliance.",
+   violTerm:null},
+
+  {id:11,cat:"vat",catName:"VAT",act:"Nigeria Tax Act 2025",section:"Section 155",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Act 2025, Input VAT credit can be claimed when:",
+   opts:["VAT was paid on any personal expense","VAT was paid on goods/services used for making taxable supplies","Only on imported goods","Only on capital assets over ₦5 million"],ans:1,
+   ref:"Section 155, Nigeria Tax Act 2025 — Credit for input tax and remission of VAT",
+   compTerm:"Input Tax Credit Optimization",compMsg:"Claiming legitimate input VAT reduces your tax burden legally and is a key component of VAT compliance and cash flow management for businesses.",
+   violTerm:null},
+
+  {id:12,cat:"vat",catName:"VAT",act:"Nigeria Tax Act 2025",section:"Section 150 & 152",level:"hard",pts:35,
+   q:"Under the Nigeria Tax Act 2025, a non-resident company providing digital services to Nigerian consumers must:",
+   opts:["Register for VAT and charge Nigerian VAT","Only pay Nigerian withholding tax","Is completely exempt from Nigerian VAT","Only comply if they have a physical office"],ans:0,
+   ref:"Sections 150 & 152, Nigeria Tax Act 2025 — Taxable supply of non-residents, VAT Invoice",
+   compTerm:"Digital Economy VAT Compliance",compMsg:"The extension of VAT to non-resident digital service providers reflects modern international tax norms and ensures a level playing field for Nigerian businesses.",
+   violTerm:null},
+
+  // ---- CAPITAL GAINS ----
+  {id:13,cat:"capital",catName:"Capital Gains",act:"Nigeria Tax Act 2025",section:"Section 33-34",level:"easy",pts:10,
+   q:"Under the Nigeria Tax Act 2025, Capital Gains Tax (CGT) is charged on:",
+   opts:["All business revenues","Gains arising from disposal of chargeable assets","Employment income","Dividends received"],ans:1,
+   ref:"Sections 33-34, Nigeria Tax Act 2025 — Chargeable gains and chargeable assets",
+   compTerm:"CGT Awareness",compMsg:"Correctly identifying chargeable gains ensures accurate CGT computation. Transparency in asset disposals is a hallmark of high tax compliance.",
+   violTerm:null},
+
+  {id:14,cat:"capital",catName:"Capital Gains",act:"Nigeria Tax Act 2025",section:"Section 51-53",level:"easy",pts:10,
+   q:"Under the Nigeria Tax Act 2025, gains on disposal of a taxpayer's principal private residence are:",
+   opts:["Fully taxable","Exempt from Capital Gains Tax","Taxable only above ₦50 million","Subject to a reduced 5% rate"],ans:1,
+   ref:"Section 51, Nigeria Tax Act 2025 — Principal private residences",
+   compTerm:"CGT Exemption Planning",compMsg:"The principal private residence exemption under Section 51 is a legitimate tax relief. Using available exemptions is smart, ethical tax planning — not evasion!",
+   violTerm:null},
+
+  {id:15,cat:"capital",catName:"Capital Gains",act:"Nigeria Tax Act 2025",section:"Section 47",level:"hard",pts:35,
+   q:"Section 47 of the Nigeria Tax Act 2025 deals with 'Indirect transfer of ownership of companies or assets'. This provision primarily targets:",
+   opts:["Direct sale of shares on the stock exchange","Offshore restructurings designed to transfer Nigerian assets without triggering Nigerian CGT","Regular business mergers","Employee share options"],ans:1,
+   ref:"Section 47, Nigeria Tax Act 2025 — Indirect transfer of ownership of companies or assets",
+   compTerm:"Anti-Avoidance Vigilance",compMsg:"Section 47 closes a common loophole of using offshore holding structures to evade Nigerian CGT. Awareness of this provision is key for advisors and multinationals.",
+   violTerm:null},
+
+  {id:16,cat:"capital",catName:"Capital Gains",act:"Nigeria Tax Act 2025",section:"Section 39-40",level:"medium",pts:20,
+   q:"In computing Capital Gains Tax under the Nigeria Tax Act 2025, which costs are DEDUCTIBLE from the disposal proceeds?",
+   opts:["Personal living expenses","Original cost of acquisition and expenses incurred for disposal","Annual maintenance costs of the asset","All business operating expenses"],ans:1,
+   ref:"Sections 39-40, Nigeria Tax Act 2025 — Computation of chargeable gains and disposal expenses",
+   compTerm:"Accurate CGT Computation",compMsg:"Deducting allowable costs (acquisition + disposal expenses) from proceeds gives the net gain. Accuracy in CGT computation reflects professional tax practice.",
+   violTerm:null},
+
+  // ---- TAX ADMINISTRATION ----
+  {id:17,cat:"admin",catName:"Tax Administration",act:"Nigeria Tax Administration Act 2025",section:"Sections 1-10",level:"easy",pts:10,
+   q:"The Nigeria Tax Administration Act 2025 establishes a framework for:",
+   opts:["Setting tax rates only","Administering, assessing, collecting and enforcing tax obligations","Only regulating tax practitioners","Only handling international tax treaties"],ans:1,
+   ref:"Nigeria Tax Administration Act 2025 — Objectives and scope",
+   compTerm:"Tax Administration Framework",compMsg:"Understanding the Tax Administration Act empowers taxpayers to know their rights and obligations, forming the bedrock of a healthy tax compliance culture.",
+   violTerm:null},
+
+  {id:18,cat:"admin",catName:"Tax Administration",act:"Nigeria Tax Administration Act 2025",section:"Assessment Provisions",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Administration Act 2025, a taxpayer who disagrees with a tax assessment has the right to:",
+   opts:["Ignore the assessment","Only pay under protest","Object to the assessment and appeal through the prescribed process","Approach the courts directly without first objecting"],ans:2,
+   ref:"Nigeria Tax Administration Act 2025 — Assessment, objection and appeal provisions",
+   compTerm:"Taxpayers' Rights Awareness",compMsg:"Knowing and exercising your right to object and appeal is legitimate tax compliance behaviour — not tax evasion. The rule of law supports taxpayer rights.",
+   violTerm:null},
+
+  {id:19,cat:"admin",catName:"Tax Administration",act:"Nigeria Tax Administration Act 2025",section:"Records Provisions",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Administration Act 2025, how long must a taxpayer generally retain accounting records for tax purposes?",
+   opts:["2 years","5 years","6 years","10 years"],ans:2,
+   ref:"Nigeria Tax Administration Act 2025 — Record keeping and retention provisions",
+   compTerm:"Records Retention Compliance",compMsg:"Maintaining records for 6 years ensures you can respond to any tax audit or inquiry. Good record keeping is the foundation of tax compliance for any serious business.",
+   violTerm:null},
+
+  {id:20,cat:"admin",catName:"Tax Administration",act:"Nigeria Tax Administration Act 2025",section:"Penalties & Offences",level:"hard",pts:35,
+   q:"Under the Nigeria Tax Administration Act 2025, which conduct constitutes a TAX OFFENCE subject to criminal prosecution?",
+   opts:["Filing a tax return one day late","Claiming a legitimate tax relief","Deliberate falsification of tax records to evade tax","Making an arithmetic error in a return"],ans:2,
+   ref:"Nigeria Tax Administration Act 2025 — Offences and penalties provisions",
+   compTerm:"Tax Offence Awareness",compMsg:"Deliberate falsification is a criminal offence. The line between error (correctable) and fraud (criminal) is clear. Understanding this distinction protects taxpayers and advisors.",
+   violTerm:null},
+
+  {id:21,cat:"admin",catName:"Tax Administration",act:"Nigeria Tax Administration Act 2025",section:"Self-Assessment",level:"easy",pts:10,
+   q:"The self-assessment system under the Nigeria Tax Administration Act 2025 requires taxpayers to:",
+   opts:["Wait for the tax authority to calculate their tax","Calculate, return and pay their own tax liability","Only file returns; payment is automatic","Pay a fixed annual fee"],ans:1,
+   ref:"Nigeria Tax Administration Act 2025 — Self-assessment provisions",
+   compTerm:"Self-Assessment Compliance",compMsg:"Self-assessment places responsibility on the taxpayer. Accurate self-reporting is the highest form of voluntary compliance and reflects civic responsibility.",
+   violTerm:null},
+
+  {id:22,cat:"admin",catName:"Tax Administration",act:"Nigeria Tax Administration Act 2025",section:"Penalties",level:"medium",pts:20,
+   q:"Late filing of a tax return under the Nigeria Tax Administration Act 2025 typically attracts:",
+   opts:["Criminal prosecution immediately","Automatic imprisonment","Financial penalties and interest on unpaid tax","Only a warning letter"],ans:2,
+   ref:"Nigeria Tax Administration Act 2025 — Late filing penalties",
+   compTerm:"Timely Filing Discipline",compMsg:"Filing on time avoids costly late penalties and interest charges. Consistent timely filing builds a positive compliance profile with tax authorities.",
+   violTerm:null},
+
+  // ---- PETROLEUM ----
+  {id:23,cat:"petroleum",catName:"Petroleum Tax",act:"Nigeria Tax Act 2025",section:"Section 65-88",level:"medium",pts:20,
+   q:"Under Chapter 3 of the Nigeria Tax Act 2025, 'Hydrocarbon Tax' applies to:",
+   opts:["All businesses operating in Nigeria","Companies involved in upstream oil and gas (crude oil) operations","Only gas companies","Foreign oil companies only"],ans:1,
+   ref:"Sections 65-88, Nigeria Tax Act 2025 — Hydrocarbon Tax: Application and charge",
+   compTerm:"Petroleum Sector Compliance",compMsg:"Hydrocarbon tax specifically targets upstream petroleum operations. Companies in this sector must carefully track crude oil revenue and allowable deductions for accurate compliance.",
+   violTerm:null},
+
+  {id:24,cat:"petroleum",catName:"Petroleum Tax",act:"Nigeria Tax Act 2025",section:"Section 80 & 85",level:"hard",pts:35,
+   q:"Section 85 of the Nigeria Tax Act 2025 provides special fiscal treatment for:",
+   opts:["Deep water oil production","Non-Associated Gas (NAG) greenfield developments in onshore and shallow water terrains","All foreign oil companies","Petroleum product marketers"],ans:1,
+   ref:"Section 85, Nigeria Tax Act 2025 — Non-Associated Gas greenfield developments in onshore and shallow water terrains",
+   compTerm:"Gas Sector Incentive Knowledge",compMsg:"Understanding gas sector incentives under Section 85 enables investors and advisors to structure compliant projects that benefit from Nigeria's strategic gas development policy.",
+   violTerm:null},
+
+  {id:25,cat:"petroleum",catName:"Petroleum Tax",act:"Nigeria Tax Act 2025",section:"Section 101-116",level:"hard",pts:35,
+   q:"Production Sharing Contracts (PSCs) for deep offshore operations under the Nigeria Tax Act 2025 involve the allocation of:",
+   opts:["Only profit oil between NNPCL and the contractor","Royalty oil, cost oil, tax oil, and profit oil between parties","Only dividends","Only signature bonuses"],ans:1,
+   ref:"Sections 101-116, Nigeria Tax Act 2025 — Deep Offshore and Inland Basin Production Sharing Contracts",
+   compTerm:"PSC Structure Expertise",compMsg:"Mastery of the PSC oil allocation mechanics (royalty, cost, tax, and profit oil) is essential for accurate petroleum profit tax computation and compliance.",
+   violTerm:null},
+
+  {id:26,cat:"petroleum",catName:"Petroleum Tax",act:"Nigeria Tax Act 2025",section:"Section 66-72",level:"medium",pts:20,
+   q:"In computing Hydrocarbon Tax, the 'Adjusted Profit' is calculated as:",
+   opts:["Total revenue minus all personal expenses","Crude oil revenue minus allowable deductions","Revenue minus corporate overheads only","A fixed percentage of production volume"],ans:1,
+   ref:"Sections 66-72, Nigeria Tax Act 2025 — Ascertainment of crude oil revenue and adjusted profit",
+   compTerm:"Petroleum Profit Computation",compMsg:"Accurate computation of adjusted profit in petroleum operations ensures correct hydrocarbon tax liability and prevents costly reassessments by tax authorities.",
+   violTerm:null},
+
+  // ---- STAMP DUTY ----
+  {id:27,cat:"stamp",catName:"Stamp Duty",act:"Nigeria Tax Act 2025",section:"Section 123-142",level:"easy",pts:10,
+   q:"Under the Stamp Duty provisions of the Nigeria Tax Act 2025, dutiable instruments must be stamped:",
+   opts:["Only at the taxpayer's convenience","Before or at the time of execution","Only after a dispute arises","Only for contracts above ₦100 million"],ans:1,
+   ref:"Section 125, Nigeria Tax Act 2025 — Obligation to stamp",
+   compTerm:"Stamp Duty Compliance",compMsg:"Proper and timely stamping of dutiable instruments ensures enforceability in courts and demonstrates compliance with Nigeria's stamp duty framework.",
+   violTerm:null},
+
+  {id:28,cat:"stamp",catName:"Stamp Duty",act:"Nigeria Tax Act 2025",section:"Section 130-131",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Act 2025, stamp duty on conveyance of property on sale is calculated on:",
+   opts:["The seller's original purchase price","The market value or consideration paid, whichever is higher","A fixed flat fee","Only the profit margin"],ans:1,
+   ref:"Sections 130-131, Nigeria Tax Act 2025 — Conveyance on sale and consideration of debt",
+   compTerm:"Property Stamp Duty Planning",compMsg:"Using the higher of market value or consideration prevents undervaluation — a common stamp duty avoidance scheme. Transparent valuation is the compliant approach.",
+   violTerm:null},
+
+  {id:29,cat:"stamp",catName:"Stamp Duty",act:"Nigeria Tax Act 2025",section:"Section 126",level:"easy",pts:10,
+   q:"An unstamped instrument that should have been stamped under the Nigeria Tax Act 2025 is:",
+   opts:["Still fully admissible in court","Not admissible as evidence in civil proceedings unless duly stamped","Only admissible in criminal proceedings","Deemed automatically void"],ans:1,
+   ref:"Section 126, Nigeria Tax Act 2025 — Admissible evidence",
+   compTerm:"Legal Document Compliance",compMsg:"Proper stamping protects your legal rights! An unstamped instrument cannot be used as evidence in court — making stamp duty compliance a matter of legal protection.",
+   violTerm:null},
+
+  {id:30,cat:"stamp",catName:"Stamp Duty",act:"Nigeria Tax Act 2025",section:"Section 135-137",level:"hard",pts:35,
+   q:"Under the Nigeria Tax Act 2025, stamp duty on share capital is applicable when a company:",
+   opts:["Pays dividends","Issues or increases its share capital","Files its annual returns","Changes its registered address"],ans:1,
+   ref:"Sections 135-137, Nigeria Tax Act 2025 — Duty on share capital, loan capital and marketable security",
+   compTerm:"Corporate Capital Compliance",compMsg:"Awareness of stamp duty on share issuance ensures companies meet their obligations during capital raising activities — a critical compliance checkpoint for corporate advisors.",
+   violTerm:null},
+
+  // ---- REVENUE SERVICE ACT ----
+  {id:31,cat:"admin",catName:"Revenue Service",act:"Nigeria Revenue Service Act 2025",section:"Sections 1-5",level:"easy",pts:10,
+   q:"The Nigeria Revenue Service (NRS) Establishment Act 2025 created a body responsible for:",
+   opts:["Only collecting customs duties","Administering and collecting federal taxes and revenue on behalf of the Federation","Only managing state taxes","International trade negotiations"],ans:1,
+   ref:"Nigeria Revenue Service Establishment Act 2025 — Establishment and functions",
+   compTerm:"Revenue Authority Compliance",compMsg:"Understanding the NRS's mandate ensures businesses interact with the correct authority for federal tax matters, avoiding confusion and improving compliance efficiency.",
+   violTerm:null},
+
+  {id:32,cat:"admin",catName:"Revenue Service",act:"Nigeria Revenue Service Act 2025",section:"Board and Management",level:"medium",pts:20,
+   q:"Under the Nigeria Revenue Service Establishment Act 2025, the NRS is governed by:",
+   opts:["The President directly","A Board with oversight functions and a Chief Revenue Officer as executive","Only the Ministry of Finance","A committee of state governors"],ans:1,
+   ref:"Nigeria Revenue Service Establishment Act 2025 — Governance and management provisions",
+   compTerm:"Institutional Governance Awareness",compMsg:"Clear institutional governance of the NRS enhances accountability and predictability for taxpayers — hallmarks of a well-administered tax system.",
+   violTerm:null},
+
+  // ---- JOINT REVENUE BOARD ----
+  {id:33,cat:"admin",catName:"Joint Revenue Board",act:"Joint Revenue Board Act 2025",section:"Sections 1-8",level:"easy",pts:10,
+   q:"The Joint Revenue Board of Nigeria Establishment Act 2025 creates a body to:",
+   opts:["Replace all state revenue services","Coordinate revenue collection between federal, state and local governments","Only handle petroleum revenues","Manage Nigeria's foreign exchange"],ans:1,
+   ref:"Joint Revenue Board of Nigeria Establishment Act 2025 — Establishment and objectives",
+   compTerm:"Intergovernmental Revenue Coordination",compMsg:"The JRB bridges federal-state-local revenue gaps, reducing duplication and improving overall national tax compliance through coordinated administration.",
+   violTerm:null},
+
+  {id:34,cat:"admin",catName:"Joint Revenue Board",act:"Joint Revenue Board Act 2025",section:"Functions",level:"medium",pts:20,
+   q:"A key function of the Joint Revenue Board under its 2025 Act is to:",
+   opts:["Set different tax rates for each state","Promote uniformity, simplification and harmonisation of tax laws across tiers of government","Only collect taxes from large multinationals","Manage the national budget"],ans:1,
+   ref:"Joint Revenue Board of Nigeria Establishment Act 2025 — Functions and powers",
+   compTerm:"Tax Harmonisation Advocacy",compMsg:"Tax harmonisation reduces compliance costs for businesses operating across multiple states and promotes investor confidence in Nigeria's tax environment.",
+   violTerm:null},
+
+  // ---- DOUBLE TAXATION ----
+  {id:35,cat:"income",catName:"Double Taxation Relief",act:"Nigeria Tax Act 2025",section:"Section 119-122",level:"hard",pts:35,
+   q:"Under Section 119 of the Nigeria Tax Act 2025, unilateral relief for double taxation is available when:",
+   opts:["A taxpayer pays tax to two different Nigerian states","Income has been taxed in Nigeria and in a foreign country without a DTA in force","A company has two business lines","A taxpayer files two returns"],ans:1,
+   ref:"Section 119, Nigeria Tax Act 2025 — Unilateral relief of double taxation",
+   compTerm:"Double Tax Relief Planning",compMsg:"Claiming unilateral double tax relief under Section 119 is legitimate tax planning for cross-border operations, preventing the same income being taxed twice.",
+   violTerm:null},
+
+  {id:36,cat:"income",catName:"Tax Incentives",act:"Nigeria Tax Act 2025",section:"Section 59-64",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Act 2025, entities operating in Export Processing Zones enjoy:",
+   opts:["Standard full tax rates","Special incentive regimes including tax holidays for qualifying operations","Only reduced VAT rates","No tax benefits whatsoever"],ans:1,
+   ref:"Section 60, Nigeria Tax Act 2025 — Export processing and free trade zone entities",
+   compTerm:"Tax Incentive Compliance",compMsg:"EPZ tax incentives are legitimate government tools to attract investment. Properly structuring operations within qualifying zones is ethical and legal tax planning.",
+   violTerm:null},
+
+  {id:37,cat:"income",catName:"Development Levy",act:"Nigeria Tax Act 2025",section:"Section 59",level:"medium",pts:20,
+   q:"The Development Levy under Section 59 of the Nigeria Tax Act 2025 is:",
+   opts:["A voluntary contribution to development funds","A mandatory levy imposed on individuals and companies for national development purposes","Only payable by oil companies","An optional payment for tax incentives"],ans:1,
+   ref:"Section 59 & Fourteenth Schedule, Nigeria Tax Act 2025 — Development levy",
+   compTerm:"Development Levy Compliance",compMsg:"The development levy funds critical national priorities including defence, infrastructure and education. Compliance reflects good corporate citizenship.",
+   violTerm:null},
+
+  {id:38,cat:"vat",catName:"VAT — Business Restructuring",act:"Nigeria Tax Act 2025",section:"Section 156",level:"hard",pts:35,
+   q:"Under Section 156 of the Nigeria Tax Act 2025, VAT implications of business restructuring (mergers/acquisitions) are:",
+   opts:["Always fully taxable as normal supply","May be relieved from VAT where qualifying conditions are met to avoid taxing mere reorganisations","Always exempt with no conditions","Only applicable to foreign companies"],ans:1,
+   ref:"Section 156, Nigeria Tax Act 2025 — Business restructuring",
+   compTerm:"M&A Tax Structuring",compMsg:"VAT relief on genuine business restructurings prevents unnecessary tax friction in commercial reorganisations — a sophisticated area requiring specialist advice.",
+   violTerm:null},
+
+  {id:39,cat:"petroleum",catName:"Petroleum — Gas",act:"Nigeria Tax Act 2025",section:"Section 80",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Act 2025, the utilisation of associated gas has:",
+   opts:["No special tax treatment","Specific incentives to encourage gas utilisation rather than flaring","Higher taxes to discourage overuse","Only regulatory requirements, not tax implications"],ans:1,
+   ref:"Section 80 & 92, Nigeria Tax Act 2025 — Provisions relating to gas, incentives for associated gas",
+   compTerm:"Gas Flaring Reduction Policy",compMsg:"Tax incentives for gas utilisation support Nigeria's environmental commitments to reduce flaring — aligning commercial activity with national sustainability goals.",
+   violTerm:null},
+
+  {id:40,cat:"capital",catName:"Capital Gains — Gifts",act:"Nigeria Tax Act 2025",section:"Section 54",level:"easy",pts:10,
+   q:"Under the Nigeria Tax Act 2025, gifts of chargeable assets:",
+   opts:["Are always completely exempt from CGT","Are treated as disposals at market value for CGT purposes","Are only taxable if the recipient sells within 1 year","Do not trigger any tax obligation"],ans:1,
+   ref:"Section 54, Nigeria Tax Act 2025 — Gifts",
+   compTerm:"Gift Tax Compliance",compMsg:"Treating gifts as market value disposals prevents CGT avoidance through gifting. This anti-avoidance rule ensures fairness and protects the tax base.",
+   violTerm:null},
+
+  // More questions for variety
+  {id:41,cat:"admin",catName:"Tax Planning vs Evasion",act:"Nigeria Tax Administration Act 2025",section:"Anti-Avoidance",level:"hard",pts:35,
+   q:"What is the KEY distinction between acceptable Tax Planning and Tax Evasion under Nigerian tax law?",
+   opts:["There is no distinction — all tax reduction is illegal","Tax planning uses legal means within the law; tax evasion involves illegal concealment or misrepresentation","Tax planning is only for large companies","Evasion is only defined for VAT purposes"],ans:1,
+   ref:"Nigeria Tax Administration Act 2025 — Anti-avoidance and tax offences provisions",
+   compTerm:"Tax Ethics Excellence",compMsg:"The distinction between tax planning (legal) and tax evasion (criminal) is fundamental. Always structure arrangements within the law to maintain your integrity and freedom.",
+   violTerm:null},
+
+  {id:42,cat:"income",catName:"Transfer Pricing",act:"Nigeria Tax Act 2025",section:"Related Party Provisions",level:"hard",pts:35,
+   q:"Transfer pricing rules in the Nigeria Tax Act 2025 require transactions between related parties to be:",
+   opts:["At discounted rates to benefit group companies","At arm's length — as if the parties were independent","Only declared but not adjusted","At rates set by the Revenue Service"],ans:1,
+   ref:"Nigeria Tax Act 2025 — Related party transactions and transfer pricing provisions",
+   compTerm:"Arm's Length Compliance",compMsg:"Arm's length transfer pricing prevents profit shifting between related entities. Compliance demonstrates corporate transparency and protects against costly adjustments.",
+   violTerm:null},
+
+  {id:43,cat:"admin",catName:"Tax Clearance",act:"Nigeria Tax Administration Act 2025",section:"Tax Clearance Certificate",level:"easy",pts:10,
+   q:"A Tax Clearance Certificate (TCC) under Nigerian tax law certifies that:",
+   opts:["A taxpayer has never paid tax","A taxpayer has fulfilled their tax obligations for the preceding 3 years","A company is registered with CAC","A taxpayer is exempt from all taxes"],ans:1,
+   ref:"Nigeria Tax Administration Act 2025 — Tax Clearance Certificate provisions",
+   compTerm:"TCC Compliance Achievement",compMsg:"A valid TCC is your compliance badge! It's required for government contracts, property transactions and various permits — compliance opens doors.",
+   violTerm:null},
+
+  {id:44,cat:"vat",catName:"VAT — Digital Economy",act:"Nigeria Tax Act 2025",section:"Section 143-150",level:"medium",pts:20,
+   q:"Under the Nigeria Tax Act 2025, the supply of digital services (streaming, apps, online platforms) to Nigerian consumers:",
+   opts:["Is completely exempt from VAT","Constitutes a taxable supply subject to Nigerian VAT","Is only subject to customs duty","Is taxed only when the provider is Nigerian"],ans:1,
+   ref:"Sections 143-150, Nigeria Tax Act 2025 — Digital services and non-resident taxable supplies",
+   compTerm:"Digital Economy Tax Compliance",compMsg:"Bringing digital services into the VAT net is a global best practice. Nigeria's inclusion of digital services reflects modern international tax standards.",
+   violTerm:null},
+
+  {id:45,cat:"income",catName:"Thin Capitalisation",act:"Nigeria Tax Act 2025",section:"Related Provisions",level:"hard",pts:35,
+   q:"The thin capitalisation rules in Nigeria's tax framework are designed to prevent:",
+   opts:["Under-capitalisation of new businesses","Excessive debt-loading of Nigerian subsidiaries to shift profits offshore through inflated interest deductions","Over-distribution of dividends","Foreign equity investment"],ans:1,
+   ref:"Nigeria Tax Act 2025 — Interest deductibility and thin capitalisation provisions",
+   compTerm:"Substance Over Form Compliance",compMsg:"Thin capitalisation rules enforce economic substance — ensuring Nigerian operations are properly funded with equity, not just debt designed to strip profits.",
+   violTerm:null},
+];
+
+// NON-COMPLIANCE pop-up data (shown on wrong answers)
+const VIOLATION_POPUPS = [
+  {term:"Tax Evasion",icon:"⛔",msg:"Tax evasion involves wilfully concealing income or assets from tax authorities. It is a criminal offence under the Nigeria Tax Administration Act 2025, punishable by fines and imprisonment.",ref:"Nigeria Tax Administration Act 2025 — Criminal offences and penalties"},
+  {term:"Aggressive Tax Avoidance",icon:"🚨",msg:"Aggressive tax avoidance exploits technical loopholes beyond the legislative intent. Anti-avoidance provisions in the Nigeria Tax Act 2025 empower authorities to look through such arrangements.",ref:"Nigeria Tax Act 2025 — Anti-avoidance provisions"},
+  {term:"Non-Filing Violation",icon:"⚠️",msg:"Failure to file tax returns is a violation of the Nigeria Tax Administration Act 2025. Late filing attracts penalties and interest, and repeated failure can lead to enforcement action.",ref:"Nigeria Tax Administration Act 2025 — Filing obligations and penalties"},
+  {term:"Underreporting Income",icon:"🔴",msg:"Underreporting income to reduce tax liability constitutes fraud. The Nigeria Tax Administration Act 2025 empowers tax authorities to conduct audits and reassessments going back several years.",ref:"Nigeria Tax Administration Act 2025 — Assessment and audit powers"},
+  {term:"False Declaration",icon:"⛔",msg:"Making false declarations in a tax return is a criminal offence. The Nigeria Tax Act 2025 and Tax Administration Act both impose severe penalties including prosecution for deliberate misrepresentation.",ref:"Nigeria Tax Administration Act 2025 — Offences: false returns and declarations"},
+  {term:"Profit Shifting",icon:"🚨",msg:"Profit shifting through artificial transfer pricing arrangements violates arm's length principles. Nigeria's transfer pricing regulations under the Tax Act can impose adjustments and penalties.",ref:"Nigeria Tax Act 2025 — Transfer pricing and anti-avoidance"},
+  {term:"Withholding Tax Default",icon:"⚠️",msg:"Failure to deduct and remit withholding tax makes the payer personally liable for the tax plus penalties. WHT is a deduction-at-source mechanism under the Nigeria Tax Act 2025.",ref:"Nigeria Tax Act 2025 — Withholding tax provisions"},
+  {term:"Stamp Duty Evasion",icon:"🔴",msg:"Executing instruments without stamping them is an offence under the Nigeria Tax Act 2025. Unstamped documents are inadmissible as evidence and attract penalty charges plus interest.",ref:"Sections 123-125, Nigeria Tax Act 2025 — Stamp duty obligations"},
+];
+
+// COMPLIANCE pop-up data (shown on correct answers)
+const COMPLIANCE_POPUPS = [
+  {term:"Voluntary Compliance",icon:"✅",msg:"Voluntary compliance is the cornerstone of modern tax systems. When taxpayers honestly self-assess and pay their taxes, government can fund public goods effectively.",ref:"Nigeria Tax Administration Act 2025 — Self-assessment framework"},
+  {term:"Tax Planning",icon:"🌟",msg:"Legitimate tax planning involves arranging affairs within the law to minimise tax liability. The Nigeria Tax Act 2025 provides numerous reliefs, exemptions and incentives for this purpose.",ref:"Nigeria Tax Act 2025 — Incentives, reliefs and exemptions"},
+  {term:"Fiscal Citizenship",icon:"🏛️",msg:"Paying taxes is a civic duty and social contract between citizens and the state. Tax revenues fund healthcare, education, security and infrastructure for all Nigerians.",ref:"Nigeria Tax Act 2025 — Development levy: Fourteenth Schedule"},
+  {term:"Tax Transparency",icon:"📊",msg:"Transparent reporting of income, assets and transactions builds trust between taxpayers and authorities. The NRS Establishment Act 2025 emphasises exchange of information.",ref:"Nigeria Revenue Service Establishment Act 2025"},
+  {term:"Record Keeping Excellence",icon:"📁",msg:"Maintaining comprehensive, accurate financial records for at least 6 years supports tax compliance and protects taxpayers during audits under the Tax Administration Act 2025.",ref:"Nigeria Tax Administration Act 2025 — Record keeping obligations"},
+  {term:"Timely Filing & Payment",icon:"⏰",msg:"Filing returns and paying taxes on time demonstrates responsible compliance behaviour, avoids late payment penalties and builds a positive tax history with the NRS.",ref:"Nigeria Tax Administration Act 2025 — Filing deadlines and payment obligations"},
+  {term:"Informed Taxpayer",icon:"🎓",msg:"An informed taxpayer is a compliant taxpayer! Understanding your rights and obligations under the 4 Nigeria Tax Acts 2025 empowers you to comply accurately and confidently.",ref:"All 4 Nigeria Tax Acts 2025"},
+  {term:"Social Contract",icon:"🤝",msg:"Taxation represents the social contract between citizens and their government. The 2025 Tax Reforms aim to make this contract fairer, simpler and more transparent for all Nigerians.",ref:"Explanatory Memorandum, Nigeria Tax Act 2025"},
+];
+
+// ==========================================
+// WORD CLOUD TERMS
+// ==========================================
+const COMPLIANCE_WORDS = [
+  {text:"Tax Compliance",size:40,color:"#00FF88"},{text:"Voluntary Filing",size:30,color:"#00CC66"},
+  {text:"Self-Assessment",size:28,color:"#00FF88"},{text:"Tax Planning",size:35,color:"#00AA55"},
+  {text:"Honest Reporting",size:25,color:"#00FF88"},{text:"Record Keeping",size:28,color:"#00CC66"},
+  {text:"Timely Payment",size:32,color:"#00FF88"},{text:"Fiscal Citizenship",size:24,color:"#00AA55"},
+  {text:"Social Contract",size:30,color:"#00CC66"},{text:"Transparency",size:26,color:"#00FF88"},
+  {text:"Tax Deductions",size:22,color:"#00AA55"},{text:"Capital Allowances",size:20,color:"#00CC66"},
+  {text:"VAT Registration",size:24,color:"#00FF88"},{text:"NRS Compliance",size:22,color:"#00AA55"},
+  {text:"JRB Harmony",size:18,color:"#009944"},{text:"Tax Incentives",size:26,color:"#00CC66"},
+];
+
+const VIOLATION_WORDS = [
+  {text:"Tax Evasion",size:40,color:"#FF3355"},{text:"Non-Filing",size:30,color:"#CC2244"},
+  {text:"Underreporting",size:35,color:"#FF3355"},{text:"False Declaration",size:28,color:"#CC2244"},
+  {text:"Profit Shifting",size:32,color:"#FF3355"},{text:"Aggressive Avoidance",size:26,color:"#CC2244"},
+  {text:"Stamp Evasion",size:22,color:"#FF3355"},{text:"WHT Default",size:24,color:"#CC2244"},
+  {text:"Fraudulent Returns",size:30,color:"#FF3355"},{text:"Shell Companies",size:24,color:"#CC2244"},
+  {text:"Transfer Pricing Abuse",size:28,color:"#FF3355"},{text:"Offshore Concealment",size:22,color:"#CC2244"},
+];
+
+const NEUTRAL_WORDS = [
+  {text:"Tax Reform 2025",size:35,color:"#FFD700"},{text:"Nigeria Tax Act",size:30,color:"#FFD700"},
+  {text:"Tax Administration",size:28,color:"#FF8C00"},{text:"Revenue Service",size:26,color:"#FFD700"},
+  {text:"Joint Revenue Board",size:24,color:"#FF8C00"},{text:"Hydrocarbon Tax",size:22,color:"#FFD700"},
+  {text:"Development Levy",size:22,color:"#FF8C00"},{text:"Taxpayer Rights",size:26,color:"#FFD700"},
+  {text:"Tax Appeals",size:20,color:"#FF8C00"},{text:"PAYE System",size:24,color:"#FFD700"},
+];
+
+// ZONE MAPPING (1-8 on dice becomes 8 zones via logic)
+const ZONES = ["income","vat","capital","admin","petroleum","stamp","penalty","bonus"];
+const ZONE_NAMES = {income:"Income Tax",vat:"VAT",capital:"Capital Gains",admin:"Tax Admin",petroleum:"Petroleum",stamp:"Stamp Duty",penalty:"PENALTY ZONE",bonus:"BONUS ZONE"};
+
+// ==========================================
+// GAME STATE
+// ==========================================
+let gameState = {
+  players:[],
+  currentPlayerIndex:0,
+  round:1,
+  maxRounds:8,
+  totalQs:0,
+  paused:false,
+  started:false,
+  gameOver:false,
+  timerInterval:null,
+  elapsedSeconds:0,
+  currentZone:null,
+  currentQuestion:null,
+  diceRolled:false,
+  questionAnswered:false,
+  askedQuestions:new Set(),
+};
+
+let playerCount = 2;
+
+// ==========================================
+// PARTICLE SYSTEM
+// ==========================================
+(function initParticles(){
+  const canvas=document.getElementById('particles-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,particles=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  class P{constructor(){this.reset()}
+    reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-0.5)*0.3;this.vy=-Math.random()*0.5-0.1;this.size=Math.random()*2+0.5;this.opacity=Math.random()*0.4+0.1;this.color=Math.random()>0.6?'#00FF88':Math.random()>0.5?'#FFD700':'#00F5FF'}
+    update(){this.x+=this.vx;this.y+=this.vy;this.opacity-=0.001;if(this.y<-5||this.opacity<=0)this.reset()}
+    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle=this.color;ctx.globalAlpha=this.opacity;ctx.fill();ctx.globalAlpha=1}}
+  for(let i=0;i<80;i++)particles.push(new P());
+  function animate(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animate)}
+  animate();
+})();
+
+// ==========================================
+// SCREEN MANAGEMENT
+// ==========================================
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showSetup(){showScreen('setup');renderPlayerCards()}
+function showHowTo(){document.getElementById('howto-modal').classList.add('show')}
+function closeHowTo(){document.getElementById('howto-modal').classList.remove('show')}
+
+// ==========================================
+// PLAYER SETUP
+// ==========================================
+const AVATARS = ['🧑‍💼','👩‍💼','🧑‍⚖️','👩‍⚖️','🧑‍🏫','👩‍🏫','🧑‍💻','👩‍💻','🏦','⚖️','🎓','🦅'];
+const PLAYER_COLORS = ['#00FF88','#FFD700','#FF3355','#00F5FF','#FF8C00'];
+
+function setPlayerCount(n){
+  playerCount=n;
+  document.querySelectorAll('.pcount-btn').forEach((b,i)=>b.classList.toggle('active',i===n-1));
+  renderPlayerCards();
+}
+
+function renderPlayerCards(){
+  const grid=document.getElementById('players-grid');
+  grid.innerHTML='';
+  for(let i=0;i<playerCount;i++){
+    const card=document.createElement('div');
+    card.className='player-card-setup';
+    card.style.borderColor=PLAYER_COLORS[i]+'44';
+    card.innerHTML=`
+      <div class="player-num-badge" style="color:${PLAYER_COLORS[i]}">PLAYER ${i+1}</div>
+      <input class="player-input" id="pname-${i}" placeholder="Enter name or character..." value="Player ${i+1}" maxlength="20">
+      <div class="avatar-select" id="avatar-sel-${i}">
+        ${AVATARS.map((a,j)=>`<button class="avatar-btn ${j===i?'selected':''}" onclick="selectAvatar(${i},${j})" data-av="${j}">${a}</button>`).join('')}
+      </div>`;
+    grid.appendChild(card);
+  }
+}
+
+function selectAvatar(player,avatarIdx){
+  document.querySelectorAll(`#avatar-sel-${player} .avatar-btn`).forEach(b=>{b.classList.remove('selected');if(parseInt(b.dataset.av)===avatarIdx)b.classList.add('selected')});
+}
+
+function getSelectedAvatar(playerIdx){
+  const sel=document.querySelector(`#avatar-sel-${playerIdx} .avatar-btn.selected`);
+  return sel?AVATARS[parseInt(sel.dataset.av)]:AVATARS[playerIdx];
+}
+
+function startGame(){
+  gameState.players=[];
+  for(let i=0;i<playerCount;i++){
+    const nm=document.getElementById(`pname-${i}`).value.trim()||`Player ${i+1}`;
+    gameState.players.push({
+      name:nm,avatar:getSelectedAvatar(i),color:PLAYER_COLORS[i],
+      score:0,correct:0,wrong:0,complianceRate:50,
+      terms:[],compTerms:[],violTerms:[],
+      milestones:{seedling:false,star:false,scholar:false,champion:false,arbiter:false},
+      actsAnswered:new Set(),consecutiveCorrect:0,
+    });
+  }
+  gameState.currentPlayerIndex=0;
+  gameState.round=1;gameState.paused=false;gameState.gameOver=false;
+  gameState.elapsedSeconds=0;gameState.diceRolled=false;gameState.questionAnswered=false;
+  gameState.askedQuestions=new Set();
+  gameState.totalQs=0;
+  startTimer();
+  showScreen('game');
+  updateGameUI();
+  renderLeaderboard();
+  renderMilestones();
+}
+
+// ==========================================
+// TIMER
+// ==========================================
+function startTimer(){
+  if(gameState.timerInterval)clearInterval(gameState.timerInterval);
+  gameState.timerInterval=setInterval(()=>{
+    if(!gameState.paused&&!gameState.gameOver){
+      gameState.elapsedSeconds++;
+      const m=Math.floor(gameState.elapsedSeconds/60).toString().padStart(2,'0');
+      const s=(gameState.elapsedSeconds%60).toString().padStart(2,'0');
+      document.getElementById('game-timer').textContent=`${m}:${s}`;
+    }
+  },1000);
+}
+
+// ==========================================
+// PAUSE / RESET
+// ==========================================
+function togglePause(){
+  gameState.paused=!gameState.paused;
+  document.getElementById('pause-overlay').classList.toggle('show',gameState.paused);
+  document.getElementById('pause-btn').textContent=gameState.paused?'▶ RESUME':'⏸ PAUSE';
+}
+
+function confirmReset(){
+  if(confirm('Reset game? All progress will be lost.')){resetGame();}
+}
+
+function resetGame(){
+  if(gameState.timerInterval)clearInterval(gameState.timerInterval);
+  document.getElementById('pause-overlay').classList.remove('show');
+  startGame();
+}
+
+function replayGame(){
+  showScreen('setup');renderPlayerCards();
+}
+
+// ==========================================
+// UPDATE UI
+// ==========================================
+function updateGameUI(){
+  const cp=gameState.players[gameState.currentPlayerIndex];
+  document.getElementById('apb-avatar').textContent=cp.avatar;
+  document.getElementById('apb-name').textContent=cp.name;
+  document.getElementById('apb-score').textContent=`${cp.score>0?'+':''}${cp.score} pts`;
+  document.getElementById('apb-score').style.color=cp.score>=0?'var(--gold)':'var(--red)';
+  const rate=cp.complianceRate;
+  const lbl=rate>=75?'High Compliance 🌟':rate>=50?'Moderate Compliance ⚖️':rate>=25?'Low Compliance ⚠️':'Non-Compliant ⛔';
+  document.getElementById('apb-compliance').textContent=`Compliance: ${lbl}`;
+  document.getElementById('round-display').textContent=`Round ${gameState.round} of ${gameState.maxRounds} | Player: ${cp.name} ${cp.avatar}`;
+  document.getElementById('waiting-msg').style.display='block';
+  document.getElementById('question-zone').style.display='none';
+  document.getElementById('q-progress').style.display='none';
+  document.getElementById('roll-btn').disabled=false;
+  gameState.diceRolled=false;gameState.questionAnswered=false;
+  highlightActiveZone(null);
+}
+
+// ==========================================
+// DICE ROLL
+// ==========================================
+function rollDice(){
+  if(gameState.paused||gameState.diceRolled||gameState.gameOver)return;
+  const diceEl=document.getElementById('dice-display');
+  diceEl.classList.add('rolling');
+  document.getElementById('roll-btn').disabled=true;
+  document.getElementById('dice-result').textContent='...';
+  let count=0;
+  const spin=setInterval(()=>{
+    const r=Math.floor(Math.random()*8);
+    document.getElementById('dice-result').textContent=ZONE_NAMES[ZONES[r]].split(' ')[0];
+    count++;
+    if(count>10){
+      clearInterval(spin);
+      diceEl.classList.remove('rolling');
+      const finalRoll=Math.floor(Math.random()*8);
+      const zone=ZONES[finalRoll];
+      gameState.currentZone=zone;
+      document.getElementById('dice-result').textContent=ZONE_NAMES[zone];
+      document.getElementById('dice-sub').textContent=`Zone: ${ZONE_NAMES[zone]}`;
+      gameState.diceRolled=true;
+      highlightActiveZone(zone);
+      setTimeout(()=>handleZone(zone),600);
+    }
+  },100);
+}
+
+function highlightActiveZone(zone){
+  ZONES.forEach(z=>{
+    const el=document.getElementById(`zone-${z}`);
+    if(el)el.classList.remove('active-zone');
+  });
+  if(zone){
+    const el=document.getElementById(`zone-${zone}`);
+    if(el)el.classList.add('active-zone');
+  }
+}
+
+// ==========================================
+// ZONE HANDLING
+// ==========================================
+function handleZone(zone){
+  const cp=gameState.players[gameState.currentPlayerIndex];
+  if(zone==='penalty'){
+    showPenaltyPopup(cp);
+    return;
+  }
+  if(zone==='bonus'){
+    showBonusPopup(cp);
+    return;
+  }
+  // Question zone
+  const q=getQuestion(zone);
+  if(!q){
+    // No more questions in this zone, pick random
+    const fallbackZone=ZONES.slice(0,6)[Math.floor(Math.random()*6)];
+    const fq=getQuestion(fallbackZone);
+    if(fq)showQuestion(fq);
+    else nextTurn();
+    return;
+  }
+  showQuestion(q);
+}
+
+function getQuestion(zone){
+  const zoneQs=QUESTIONS.filter(q=>q.cat===zone&&!gameState.askedQuestions.has(q.id));
+  if(zoneQs.length===0){
+    // Reset zone questions if exhausted
+    QUESTIONS.filter(q=>q.cat===zone).forEach(q=>gameState.askedQuestions.delete(q.id));
+    return QUESTIONS.filter(q=>q.cat===zone)[0]||null;
+  }
+  return zoneQs[Math.floor(Math.random()*zoneQs.length)];
+}
+
+// ==========================================
+// SHOW QUESTION
+// ==========================================
+function showQuestion(q){
+  gameState.currentQuestion=q;
+  gameState.askedQuestions.add(q.id);
+  gameState.totalQs++;
+
+  document.getElementById('waiting-msg').style.display='none';
+  document.getElementById('q-progress').style.display='flex';
+  document.getElementById('question-zone').style.display='block';
+
+  const pct=Math.round((gameState.askedQuestions.size/QUESTIONS.length)*100);
+  document.getElementById('q-progress-fill').style.width=pct+'%';
+  document.getElementById('q-progress-text').textContent=`Q ${gameState.askedQuestions.size}/${QUESTIONS.length}`;
+
+  const catBadge=document.getElementById('q-cat-badge');
+  catBadge.textContent=`${getCatIcon(q.cat)} ${q.catName}`;
+  const lvlBadge=document.getElementById('q-level-badge');
+  lvlBadge.className=`q-level-badge ${q.level}`;
+  lvlBadge.textContent=q.level.toUpperCase();
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('q-ref').innerHTML=`📚 ${q.act} · ${q.section}`;
+
+  const opts=document.getElementById('q-options');
+  opts.innerHTML='';
+  const prefixes=['A','B','C','D'];
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML=`<span class="option-prefix">${prefixes[i]}.</span>${o}`;
+    btn.onclick=()=>answerQuestion(i,btn);
+    opts.appendChild(btn);
+  });
+
+  document.getElementById('feedback-bar').style.display='none';
+}
+
+function getCatIcon(cat){
+  const icons={income:'💚',vat:'🔵',capital:'💰',admin:'🏛️',petroleum:'⛽',stamp:'📜'};
+  return icons[cat]||'📊';
+}
+
+// ==========================================
+// ANSWER QUESTION
+// ==========================================
+function answerQuestion(selectedIdx, clickedBtn){
+  if(gameState.questionAnswered||gameState.paused)return;
+  gameState.questionAnswered=true;
+  const q=gameState.currentQuestion;
+  const cp=gameState.players[gameState.currentPlayerIndex];
+  const isCorrect=selectedIdx===q.ans;
+  const pts=q.pts*(isCorrect?1:-0.5);
+  const roundedPts=isCorrect?q.pts:-Math.floor(q.pts/2);
+
+  // Disable all options
+  document.querySelectorAll('.option-btn').forEach((b,i)=>{
+    b.classList.add('disabled');
+    if(i===q.ans)b.classList.add('correct');
+    if(i===selectedIdx&&!isCorrect)b.classList.add('wrong');
+  });
+
+  // Update player stats
+  cp.score+=roundedPts;
+  if(isCorrect){
+    cp.correct++;
+    cp.consecutiveCorrect++;
+    cp.actsAnswered.add(q.act);
+    cp.complianceRate=Math.min(100,cp.complianceRate+5);
+    const compPop=COMPLIANCE_POPUPS[Math.floor(Math.random()*COMPLIANCE_POPUPS.length)];
+    cp.compTerms.push(compPop.term);
+    cp.terms.push({text:compPop.term,type:'compliance'});
+  } else {
+    cp.wrong++;
+    cp.consecutiveCorrect=0;
+    cp.complianceRate=Math.max(0,cp.complianceRate-8);
+    const violPop=VIOLATION_POPUPS[Math.floor(Math.random()*VIOLATION_POPUPS.length)];
+    cp.violTerms.push(violPop.term);
+    cp.terms.push({text:violPop.term,type:'violation'});
+  }
+
+  checkMilestones(cp);
+  showScoreAnimation(roundedPts,isCorrect);
+
+  const fb=document.getElementById('feedback-bar');
+  fb.style.display='block';
+  fb.className=`feedback-bar ${isCorrect?'success':'fail'}`;
+  fb.textContent=isCorrect?`✅ Correct! +${q.pts} Compliance Points`:`❌ Incorrect! -${Math.floor(q.pts/2)} Points. Correct answer: ${q.opts[q.ans]}`;
+
+  renderLeaderboard();
+
+  setTimeout(()=>{
+    if(isCorrect){
+      const pop=COMPLIANCE_POPUPS[Math.floor(Math.random()*COMPLIANCE_POPUPS.length)];
+      showCompliancePopup(pop,q,roundedPts);
+    } else {
+      const pop=VIOLATION_POPUPS[Math.floor(Math.random()*VIOLATION_POPUPS.length)];
+      showViolationPopup(pop,q,roundedPts);
+    }
+  },800);
+}
+
+// ==========================================
+// POPUPS
+// ==========================================
+function showCompliancePopup(pop,q,pts){
+  const box=document.getElementById('popup-box');
+  box.className='popup-box compliance';
+  document.getElementById('popup-icon').textContent=pop.icon||'✅';
+  document.getElementById('popup-title').className='popup-title compliance';
+  document.getElementById('popup-title').textContent='🌟 EXCELLENT COMPLIANCE MOVE!';
+  document.getElementById('popup-term').textContent=pop.term;
+  document.getElementById('popup-body').textContent=pop.msg;
+  document.getElementById('popup-ref').textContent=`📚 Ref: ${pop.ref}`;
+  document.getElementById('popup-pts').className='popup-pts pos';
+  document.getElementById('popup-pts').textContent=`+${pts} pts`;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function showViolationPopup(pop,q,pts){
+  const box=document.getElementById('popup-box');
+  box.className='popup-box violation';
+  document.getElementById('popup-icon').textContent=pop.icon||'⛔';
+  document.getElementById('popup-title').className='popup-title violation';
+  document.getElementById('popup-title').textContent='⚠️ NON-COMPLIANCE ALERT!';
+  document.getElementById('popup-term').textContent=pop.term;
+  document.getElementById('popup-body').textContent=pop.msg;
+  document.getElementById('popup-ref').textContent=`📚 Ref: ${pop.ref}`;
+  document.getElementById('popup-pts').className='popup-pts neg';
+  document.getElementById('popup-pts').textContent=`${pts} pts`;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function showPenaltyPopup(cp){
+  cp.score-=20;
+  cp.complianceRate=Math.max(0,cp.complianceRate-10);
+  cp.violTerms.push("Penalty Zone");
+  cp.terms.push({text:"Tax Penalty",type:'violation'});
+  showScoreAnimation(-20,false);
+  renderLeaderboard();
+  const box=document.getElementById('popup-box');
+  box.className='popup-box violation';
+  document.getElementById('popup-icon').textContent='⚠️';
+  document.getElementById('popup-title').className='popup-title violation';
+  document.getElementById('popup-title').textContent='⚠️ PENALTY ZONE TRIGGERED!';
+  document.getElementById('popup-term').textContent='Tax Non-Compliance Penalty';
+  document.getElementById('popup-body').textContent='You have landed on a Penalty Zone! This represents a tax violation event — failure to meet obligations under the Nigeria Tax Administration Act 2025. 20 Compliance Points deducted.';
+  document.getElementById('popup-ref').textContent='📚 Nigeria Tax Administration Act 2025 — Penalties and enforcement provisions';
+  document.getElementById('popup-pts').className='popup-pts neg';
+  document.getElementById('popup-pts').textContent='-20 pts';
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function showBonusPopup(cp){
+  cp.score+=25;
+  cp.complianceRate=Math.min(100,cp.complianceRate+10);
+  cp.compTerms.push("Bonus Award");
+  cp.terms.push({text:"Compliance Bonus",type:'compliance'});
+  showScoreAnimation(25,true);
+  renderLeaderboard();
+  const box=document.getElementById('popup-box');
+  box.className='popup-box bonus';
+  document.getElementById('popup-icon').textContent='⭐';
+  document.getElementById('popup-title').className='popup-title bonus';
+  document.getElementById('popup-title').textContent='⭐ BONUS ZONE — WELL DONE!';
+  document.getElementById('popup-term').textContent='Exceptional Tax Compliance';
+  document.getElementById('popup-body').textContent='You have landed on the Bonus Zone! This represents exemplary tax behaviour — a model taxpayer who files accurately, pays on time, and maintains excellent records. 25 Compliance Points awarded!';
+  document.getElementById('popup-ref').textContent='📚 Nigeria Tax Administration Act 2025 — Compliance recognition';
+  document.getElementById('popup-pts').className='popup-pts pos';
+  document.getElementById('popup-pts').textContent='+25 pts';
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function closePopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+  nextTurn();
+}
+
+// ==========================================
+// NEXT TURN
+// ==========================================
+function nextTurn(){
+  const nextIdx=(gameState.currentPlayerIndex+1)%gameState.players.length;
+  const wasLastPlayer=nextIdx===0;
+
+  if(wasLastPlayer){
+    gameState.round++;
+    if(gameState.round>gameState.maxRounds){
+      endGame();
+      return;
+    }
+  }
+
+  gameState.currentPlayerIndex=nextIdx;
+  const nextPlayer=gameState.players[nextIdx];
+  showNextPlayerScreen(nextPlayer,()=>{updateGameUI();renderLeaderboard();renderMilestones();});
+}
+
+function showNextPlayerScreen(player, callback){
+  const overlay=document.getElementById('next-player-overlay');
+  document.getElementById('np-avatar').textContent=player.avatar;
+  document.getElementById('np-name').textContent=player.name;
+  overlay.classList.add('show');
+  let count=3;
+  const cd=document.getElementById('np-countdown');
+  cd.textContent=count;
+  const timer=setInterval(()=>{
+    count--;
+    if(count<=0){
+      clearInterval(timer);
+      overlay.classList.remove('show');
+      callback();
+    } else {
+      cd.textContent=count;
+    }
+  },1000);
+}
+
+// ==========================================
+// SCORE ANIMATION
+// ==========================================
+function showScoreAnimation(pts,positive){
+  const el=document.createElement('div');
+  el.className='score-popup-anim';
+  el.textContent=`${pts>0?'+':''}${pts}`;
+  el.style.color=positive?'var(--green)':'var(--red)';
+  el.style.left=`${Math.random()*40+30}%`;
+  el.style.top=`${Math.random()*30+30}%`;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1500);
+}
+
+// ==========================================
+// LEADERBOARD
+// ==========================================
+function renderLeaderboard(){
+  const sorted=[...gameState.players].sort((a,b)=>b.score-a.score);
+  const lb=document.getElementById('leaderboard-entries');
+  lb.innerHTML='';
+  sorted.forEach((p,i)=>{
+    const orig=gameState.players.indexOf(p);
+    const isActive=orig===gameState.currentPlayerIndex;
+    lb.innerHTML+=`
+      <div class="lb-entry ${isActive?'active-player':''}">
+        <div class="lb-rank r${i+1}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
+        <div class="lb-avatar">${p.avatar}</div>
+        <div class="lb-info" style="flex:1">
+          <div class="lb-name">${p.name}</div>
+          <div style="font-size:10px;color:var(--text-dim)">${p.correct}✓ ${p.wrong}✗</div>
+        </div>
+        <div class="lb-score ${p.score>=0?'positive':'negative'}">${p.score>0?'+':''}${p.score}</div>
+      </div>`;
+  });
+
+  // Compliance meters
+  const cm=document.getElementById('compliance-meters');
+  cm.innerHTML='';
+  gameState.players.forEach(p=>{
+    const rate=p.complianceRate;
+    const col=rate>=70?'#00FF88':rate>=40?'#FFD700':'#FF3355';
+    cm.innerHTML+=`
+      <div style="margin-bottom:8px">
+        <div class="compliance-label"><span style="font-size:11px">${p.avatar} ${p.name.substring(0,10)}</span><span style="color:${col}">${rate}%</span></div>
+        <div class="compliance-bar"><div class="compliance-fill" style="width:${rate}%;background:${col}"></div></div>
+      </div>`;
+  });
+}
+
+// ==========================================
+// MILESTONES
+// ==========================================
+const MILESTONES=[
+  {id:'seedling',icon:'🌱',name:'Tax Seedling',desc:'First correct answer',check:p=>p.correct>=1},
+  {id:'star',icon:'📋',name:'Compliance Star',desc:'3 consecutive correct',check:p=>p.consecutiveCorrect>=3},
+  {id:'scholar',icon:'🏛️',name:'Act Scholar',desc:'Answered from all 4 Acts',check:p=>p.actsAnswered.size>=3},
+  {id:'champion',icon:'💰',name:'Tax Champion',desc:'Reach 100+ points',check:p=>p.score>=100},
+  {id:'arbiter',icon:'⚖️',name:'Grand Arbiter',desc:'90%+ compliance rate',check:p=>p.complianceRate>=90},
+];
+
+function checkMilestones(p){
+  MILESTONES.forEach(m=>{if(!p.milestones[m.id]&&m.check(p)){p.milestones[m.id]=true;}});
+}
+
+function renderMilestones(){
+  const cp=gameState.players[gameState.currentPlayerIndex];
+  const list=document.getElementById('milestones-list');
+  list.innerHTML='';
+  MILESTONES.forEach(m=>{
+    const any=gameState.players.some(p=>p.milestones[m.id]);
+    const achiever=gameState.players.find(p=>p.milestones[m.id]);
+    list.innerHTML+=`
+      <div class="milestone-item ${any?'achieved':''}">
+        <span class="milestone-icon">${any?m.icon:'⬜'}</span>
+        <div>
+          <div style="font-size:11px;font-weight:600">${m.name}</div>
+          ${any?`<div style="font-size:10px;color:var(--gold)">${achiever.avatar} ${achiever.name}</div>`:''}
+        </div>
+      </div>`;
+  });
+}
+
+// ==========================================
+// END GAME
+// ==========================================
+function endGame(){
+  if(gameState.timerInterval)clearInterval(gameState.timerInterval);
+  gameState.gameOver=true;
+  const sorted=[...gameState.players].sort((a,b)=>b.score-a.score);
+  const winner=sorted[0];
+
+  showConfetti();
+  showScreen('endgame');
+
+  document.getElementById('winner-name').textContent=`${winner.avatar} ${winner.name}`;
+  document.getElementById('winner-score').textContent=`Score: ${winner.score} pts`;
+  const winTag=winner.complianceRate>=70?'🌟 High Compliance Champion':winner.complianceRate>=50?'⚖️ Moderate Compliance':'⚠️ Needs Compliance Improvement';
+  document.getElementById('winner-tag').textContent=winTag;
+
+  // Results table
+  const tbody=document.getElementById('results-tbody');
+  tbody.innerHTML='';
+  sorted.forEach((p,i)=>{
+    const isCompliant=p.complianceRate>=50&&p.correct>(p.correct+p.wrong)*0.4;
+    const tagHtml=isCompliant
+      ?`<span class="compliance-tag compliant">✅ COMPLIANT</span>`
+      :`<span class="compliance-tag non-compliant">⛔ NON-COMPLIANT</span>`;
+    tbody.innerHTML+=`
+      <tr>
+        <td><strong style="color:${i===0?'var(--gold)':i===1?'#C0C0C0':i===2?'#CD7F32':'var(--text-dim)'}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'.'}</strong></td>
+        <td>${p.avatar} <strong>${p.name}</strong></td>
+        <td><strong style="color:${p.score>=0?'var(--green)':'var(--red)'}">${p.score>0?'+':''}${p.score}</strong></td>
+        <td style="color:var(--green)">${p.correct}</td>
+        <td style="color:var(--red)">${p.wrong}</td>
+        <td>
+          <div class="compliance-bar" style="width:80px;height:8px;display:inline-block;vertical-align:middle">
+            <div class="compliance-fill" style="width:${p.complianceRate}%;background:${p.complianceRate>=70?'#00FF88':p.complianceRate>=40?'#FFD700':'#FF3355'}"></div>
+          </div>
+          <span style="margin-left:6px;font-size:12px">${p.complianceRate}%</span>
+        </td>
+        <td>${tagHtml}</td>
+      </tr>`;
+  });
+
+  // Generate word cloud
+  generateWordCloud(sorted);
+  generateLawReferences(sorted);
+}
+
+// ==========================================
+// WORD CLOUD
+// ==========================================
+function generateWordCloud(players){
+  const canvas=document.getElementById('wordcloud-canvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth||800;
+  canvas.height=300;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Collect words based on player performance
+  const compCount=players.reduce((s,p)=>s+p.compTerms.length,0);
+  const violCount=players.reduce((s,p)=>s+p.violTerms.length,0);
+
+  let words=[];
+  const cRatio=compCount/(compCount+violCount+1);
+
+  // Add compliance words (proportional)
+  COMPLIANCE_WORDS.slice(0,Math.ceil(cRatio*16)).forEach(w=>words.push({...w,size:Math.floor(w.size*(0.6+Math.random()*0.4))}));
+  // Add violation words
+  VIOLATION_WORDS.slice(0,Math.ceil((1-cRatio)*12)).forEach(w=>words.push({...w,size:Math.floor(w.size*(0.6+Math.random()*0.4))}));
+  // Always add some neutral
+  NEUTRAL_WORDS.slice(0,8).forEach(w=>words.push({...w,size:Math.floor(w.size*(0.6+Math.random()*0.4))}));
+
+  words=words.sort(()=>Math.random()-0.5);
+
+  const W=canvas.width,H=canvas.height;
+  const placed=[];
+
+  words.forEach(w=>{
+    ctx.font=`bold ${Math.max(12,Math.min(w.size,36))}px Orbitron,monospace`;
+    const metrics=ctx.measureText(w.text);
+    const tw=metrics.width,th=w.size;
+
+    let attempts=0,placed_ok=false;
+    while(attempts<100&&!placed_ok){
+      const angle=Math.random()>0.7?(Math.random()-0.5)*0.8:0;
+      const x=Math.random()*(W-tw-20)+10;
+      const y=Math.random()*(H-th-20)+th+10;
+
+      let overlap=false;
+      for(const p of placed){
+        if(Math.abs(x-p.x)<p.w+20&&Math.abs(y-p.y)<p.h+10){overlap=true;break}
+      }
+
+      if(!overlap){
+        ctx.save();
+        ctx.translate(x+tw/2,y);
+        ctx.rotate(angle);
+        ctx.fillStyle=w.color;
+        ctx.globalAlpha=0.85+Math.random()*0.15;
+        ctx.fillText(w.text,-tw/2,0);
+        ctx.restore();
+        placed.push({x,y,w:tw,h:th});
+        placed_ok=true;
+      }
+      attempts++;
+    }
+  });
+}
+
+// ==========================================
+// LAW REFERENCES
+// ==========================================
+function generateLawReferences(players){
+  const refs=document.getElementById('law-refs');
+  const hasCompliant=players.some(p=>p.complianceRate>=50);
+  const hasViolator=players.some(p=>p.complianceRate<50);
+
+  refs.innerHTML=`<div style="font-family:Orbitron,monospace;font-size:16px;color:var(--neon-cyan);text-align:center;margin-bottom:20px;letter-spacing:2px">📚 KEY LEGAL REFERENCES — NIGERIA TAX ACTS 2025</div>`;
+
+  const refData=[
+    {title:"Nigeria Tax Act 2025 — Income Tax (Chapters 1-2)",body:"Chapter 1 (Objectives & Application), Chapter 2 Parts I-IX: Income/Profits taxation including Sections 3-5 (chargeability), Section 13-14 (employment income & benefits), Section 20-21 (deductibility), Section 56-58 (tax rates for companies and individuals). Key insight: Corporate rate is 25%; individuals pay progressive rates."},
+    {title:"Nigeria Tax Act 2025 — VAT (Chapter 6, Sections 143-200+)",body:"Section 143 (imposition of VAT), Section 147 (rate: 7.5%), Section 145 (taxable supplies), Section 151-153 (collection/remittance), Section 155 (input tax credit), Section 156 (business restructuring VAT treatment). Digital services are taxable under Section 150."},
+    {title:"Nigeria Tax Act 2025 — Capital Gains (Chapter 2, Part VIII)",body:"Sections 33-55 covering: Section 33-34 (chargeable gains/assets), Section 39-40 (computation), Section 47 (indirect transfer anti-avoidance), Section 51 (principal private residence exemption), Section 54 (gift provisions). Key: gifts at market value, offshore restructuring monitored."},
+    {title:"Nigeria Tax Act 2025 — Petroleum Operations (Chapter 3)",body:"Sections 65-88: Hydrocarbon Tax regime. Section 66 (charge of hydrocarbon tax), Section 67-72 (profits computation), Sections 80/85 (gas utilisation incentives and NAG greenfield developments). Sections 89-116: Petroleum Profits Tax and PSC deep offshore provisions including royalty, cost, tax and profit oil allocation."},
+    {title:"Nigeria Tax Act 2025 — Stamp Duty (Chapter 5, Sections 123-142)",body:"Section 123 (charge of duties), Section 125 (obligation to stamp), Section 126 (inadmissibility of unstamped instruments), Section 130-131 (conveyance on sale), Sections 135-137 (share capital, loan capital, marketable security duties)."},
+    {title:"Nigeria Tax Act 2025 — Development Levy (Section 59 & Fourteenth Schedule)",body:"The development levy applies to individuals and companies. 10% is allocated to the Defence and Security Infrastructure Fund, distributed among security agencies including the Nigerian Army (20%), Nigerian Navy (12.5%), Airforce (12.5%), Police (10%) and others per Fourteenth Schedule."},
+    {title:"Nigeria Tax Administration Act 2025",body:"Establishes the framework for administration, assessment, collection and enforcement of taxes. Key provisions: self-assessment, taxpayer rights to object and appeal, record retention (6 years), offences (false declarations = criminal), TCC requirements, audit powers, interest and penalty charges on late payment/filing."},
+    {title:"Nigeria Revenue Service Establishment Act 2025",body:"Establishes the Nigeria Revenue Service (NRS) to replace and enhance the FIRS. Provides for governance, functions, powers of the Board and Chief Revenue Officer. The NRS coordinates federal tax collection and aims to modernise revenue administration aligned with the new Tax Acts."},
+    {title:"Joint Revenue Board of Nigeria Establishment Act 2025",body:"Creates the JRB to harmonise and coordinate tax administration across federal, state and local government levels. Functions include promoting uniform tax laws, resolving inter-jurisdictional disputes, recommending tax policy reforms and improving Nigeria's overall compliance environment."},
+  ];
+
+  refData.forEach(r=>{
+    refs.innerHTML+=`
+      <div class="law-ref-item">
+        <div class="law-ref-title">📌 ${r.title}</div>
+        <div class="law-ref-body">${r.body}</div>
+      </div>`;
+  });
+}
+
+// ==========================================
+// CONFETTI
+// ==========================================
+function showConfetti(){
+  const colors=['#FFD700','#00FF88','#FF3355','#00F5FF','#FF8C00','#9B59B6'];
+  for(let i=0;i<80;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.left=`${Math.random()*100}vw`;
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=`${Math.random()*3+2}s`;
+    c.style.animationDelay=`${Math.random()*2}s`;
+    c.style.width=`${Math.random()*10+5}px`;
+    c.style.height=`${Math.random()*10+5}px`;
+    c.style.borderRadius=Math.random()>0.5?'50%':'0';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),6000);
+  }
+}
+
+// ==========================================
+// INIT SETUP
+// ==========================================
+setPlayerCount(2);
+renderPlayerCards();
+
+// Auto-init dice dots
+function updateDiceDisplay(n){
+  const dotsMap={
+    1:[[30,30]],
+    2:[[15,15],[45,45]],
+    3:[[15,15],[30,30],[45,45]],
+    4:[[15,15],[45,15],[15,45],[45,45]],
+    5:[[15,15],[45,15],[30,30],[15,45],[45,45]],
+    6:[[15,12],[45,12],[15,30],[45,30],[15,48],[45,48]]
+  };
+  const g=document.getElementById('dice-dots');
+  if(!g)return;
+  g.innerHTML='';
+  (dotsMap[n]||dotsMap[1]).forEach(([x,y])=>{
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',5);
+    c.setAttribute('fill','#00FF88');
+    g.appendChild(c);
+  });
+}
+
+// Override rollDice to also update dice visual
+const _origRoll=rollDice;
+window.rollDice=function(){
+  if(gameState.paused||gameState.diceRolled||gameState.gameOver)return;
+  const diceEl=document.getElementById('dice-display');
+  diceEl.classList.add('rolling');
+  document.getElementById('roll-btn').disabled=true;
+  document.getElementById('dice-result').textContent='...';
+  let count=0;
+  const spin=setInterval(()=>{
+    const r=Math.floor(Math.random()*6)+1;
+    updateDiceDisplay(r);
+    count++;
+    if(count>10){
+      clearInterval(spin);
+      diceEl.classList.remove('rolling');
+      const finalRoll=Math.floor(Math.random()*8);
+      const zone=ZONES[finalRoll];
+      const diceNum=finalRoll+1>6?Math.floor(Math.random()*6)+1:finalRoll+1;
+      updateDiceDisplay(diceNum);
+      gameState.currentZone=zone;
+      document.getElementById('dice-result').textContent=ZONE_NAMES[zone];
+      document.getElementById('dice-sub').textContent=`Zone: ${ZONE_NAMES[zone]}`;
+      gameState.diceRolled=true;
+      highlightActiveZone(zone);
+      setTimeout(()=>handleZone(zone),600);
+    }
+  },100);
+};
+updateDiceDisplay(6);
+</script>
+</body>
+</html>
